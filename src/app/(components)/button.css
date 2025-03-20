@@ -1,0 +1,71 @@
+:root {
+  --button-border-color-default: rgb(214, 212, 212);
+  --button-border-color-hover: rgb(193, 191, 191);
+  --button-text-color-hover: rgb(87, 86, 86);
+  --menu-margin-left: 1rem;
+  --menu-font-size-large: 1.7rem;
+  --menu-font-size-small: 1.5rem;
+}
+
+.button {
+  display: none; /* Default state */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.4s;
+  min-width: 10.5rem;
+}
+
+.button:hover {
+  color: var(--button-text-color-hover);
+  border-color: var(--button-border-color-hover);
+}
+
+/* Small Mobile Devices */
+@media (max-width: 427px) {
+  .menu {
+    margin-left: var(--menu-margin-left);
+    font-size: var(--menu-font-size-small);
+    display: block;
+  }
+}
+
+/* Medium Mobile Devices */
+@media (min-width: 428px) and (max-width: 450px) {
+  .menu {
+    margin-left: 4rem;
+    font-size: var(--menu-font-size-small);
+    display: block;
+  }
+}
+
+/* Tablet and Desktop Breakpoints */
+@media (min-width: 750px) and (max-width: 768px) {
+  .button {
+    display: flex;
+    margin-left: 6rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 850px) {
+  .button {
+    display: flex;
+    margin-left: 8rem;
+  }
+}
+
+@media (min-width: 851px) {
+  .button {
+    display: flex;
+    align-items: center;
+    margin-left: 0.5rem;
+  }
+  .write-icon {
+    margin-right: 0.4rem;
+  }
+  .menu {
+    margin-left: var(--menu-margin-left);
+    font-size: var(--menu-font-size-large);
+    display: block;
+  }
+}

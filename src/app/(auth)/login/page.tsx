@@ -1,6 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-import "../../global.css"
 
 const page = () => {
   return (
@@ -8,7 +7,7 @@ const page = () => {
       <div className="auth-container">
             <div className="left-section">
               <img 
-                src='assets/Logo.jpg'
+                src='Logo.jpeg'
                 alt="Decorative" 
                 className="auth-image"
               />

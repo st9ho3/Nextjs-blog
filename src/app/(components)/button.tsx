@@ -2,6 +2,7 @@ import React from 'react'
 import { FaRegPenToSquare } from 'react-icons/fa6';
 import { FiShare } from 'react-icons/fi';
 import Link from 'next/link'
+import "./button.css"
 
 type Props = {
     text: string,

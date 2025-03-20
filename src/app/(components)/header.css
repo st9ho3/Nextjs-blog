@@ -1,0 +1,62 @@
+:root {
+  --border-color: rgb(224, 223, 223);
+  --header-height: 62px;
+  --header-height-write: 29px;
+  --menu-margin-left: 1rem;
+  --menu-font-size-large: 1.7rem;
+  --menu-font-size-small: 1.5rem;
+  --profile-pic-size: 35px;
+}
+
+.header {
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding: 0.5rem;
+  border-bottom: solid thin var(--border-color);
+}
+
+.header.fixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header.fixed + .homepage {
+  padding-top: var(--header-height);
+}
+
+.header.fixed + .writeEditor-container {
+  top: var(--header-height-write);
+}
+
+.navigation-buttons {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 2rem;
+}
+
+.navlink {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+
+.menu {
+  display: none;
+}
+
+.profile-info-pic {
+  width: var(--profile-pic-size);
+  height: var(--profile-pic-size);
+  border-radius: 50%;
+}
+
+.headerRight {
+  display: flex;
+  padding-inline: 0.5rem;
+  margin-left: 59rem;
+}

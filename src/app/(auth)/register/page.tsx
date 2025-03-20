@@ -1,15 +1,14 @@
 import React from 'react'
-import "../../global.css"
+
 import Link from 'next/link'
 
 const page = () => {
   return (
     <div>
-      <h1>register</h1>
        <div className="auth-container">
             <div className="left-section">
               <img 
-                src="assets/Logo.jpg" 
+                src="Logo.jpeg" 
                 alt="Decorative" 
                 className="auth-image"
               />

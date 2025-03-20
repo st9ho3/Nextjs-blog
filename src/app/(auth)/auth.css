@@ -1,0 +1,123 @@
+/* AuthPages.css */
+:root {
+  /* Colors */
+  --color-primary: #333;
+  --color-secondary: #666;
+  --color-light: #f5f5f5;
+  --color-white: #ffffff;
+  --color-border: #ddd;
+  --color-accent: #7f97e9;
+
+  /* Font Sizes */
+  --font-size-h2: 2rem;
+  --font-size-base: 16px;
+  --font-size-small: 0.9rem;
+
+  /* Spacing & Sizing */
+  --padding-base: 12px;
+  --margin-sm: 1rem;
+  --margin-md: 1.5rem;
+  --margin-lg: 2rem;
+  --space-sm: 0.5rem;
+
+  /* Border & Transitions */
+  --border-radius: 10px;
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.3s ease;
+}
+
+.auth-container {
+  display: flex;
+  height: 95vh;
+}
+
+.left-section {
+  flex: 1;
+  background: var(--color-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.right-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-white);
+}
+
+.auth-form {
+  width: 70%;
+  max-width: 400px;
+}
+
+.auth-form h2 {
+  margin-bottom: var(--margin-lg);
+  font-size: var(--font-size-h2);
+  color: var(--color-primary);
+}
+
+.form-group {
+  margin-bottom: var(--margin-md);
+}
+
+.form-group input {
+  width: 100%;
+  padding: var(--padding-base);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+  transition: border-color var(--transition-medium);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--color-secondary);
+}
+
+.remember-me {
+  margin: var(--margin-sm) 0;
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-small);
+  color: var(--color-secondary);
+}
+
+.remember-me input {
+  margin-right: var(--space-sm);
+}
+
+.auth-button {
+  width: 100%;
+  padding: var(--padding-base);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.auth-link {
+  margin-top: var(--margin-md);
+  text-align: center;
+  color: var(--color-secondary);
+}
+
+.auth-link a {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}
