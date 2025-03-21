@@ -1,6 +1,6 @@
 :root {
   --border-color: rgb(224, 223, 223);
-  --header-height: 62px;
+  --header-height: 162px;
   --header-height-write: 29px;
   --menu-margin-left: 1rem;
   --menu-font-size-large: 1.7rem;
@@ -14,6 +14,7 @@
   align-items: center;
   padding: 0.5rem;
   border-bottom: solid thin var(--border-color);
+  max-width: 100%;
 }
 
 .header.fixed {

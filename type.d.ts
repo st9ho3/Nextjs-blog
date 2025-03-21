@@ -1,8 +1,4 @@
-interface Article {
-    id: number,
-    title: string,
-    content: string
-}
+
 
 interface Author {
     id: string; // Unique ID for the author
@@ -20,5 +16,18 @@ interface Author {
     };
     createdAt: string; // Timestamp when the author profile was created
     updatedAt: string; // Timestamp when the author profile was last updated
+  }
+  interface Article {
+    image: string;
+    profile: string;
+    name: string;
+    id: string;
+    title: string;
+    subtitle: string;
+    date: string;
+    claps: number;
+    comments: number;
+    saves: number;
+    tags: string[];
   }
   

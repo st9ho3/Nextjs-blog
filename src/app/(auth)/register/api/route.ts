@@ -3,8 +3,9 @@ import { NextResponse } from "next/server";
 import { registerUser } from "@/app/db/auth"; // Adjust the import based on your project structure
 
 export async function POST(request: Request) {
+console.log("hello")
   try {
-    // Parse the JSON request body
+    // Parse the JSON reque st body
     const { name, email, password } = await request.json();
 
     // You can add server-side validations here if needed

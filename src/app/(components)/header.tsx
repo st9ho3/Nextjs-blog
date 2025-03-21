@@ -42,7 +42,7 @@ const Header = () => {
         <div className='headerRight'>
         <Button
           param={isWrite}
-          text={isWrite === "/write" ? 'Publish it' : 'Write an article'}
+          text={isWrite === "/write" ? 'Publish it' : 'Start Writting'}
         />
 
         <LuMenu className="menu" />
