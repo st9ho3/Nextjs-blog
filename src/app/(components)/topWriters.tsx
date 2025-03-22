@@ -1,16 +1,29 @@
 import React from 'react'
 import Link from 'next/link';
 import { BsFeather } from 'react-icons/bs';
-import { getAuthors } from '../_lib/utils';
-import { console } from 'inspector';
+import './topWriters.css'
 
+export async function getAuthorsData(): Promise<Author[]> {
+  const res = await fetch('http://localhost:3000/api/authors', {
+    cache: 'force-cache',
+  });
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+
+  return res.json();
+}
 
 const TopWriters = async () => {
-  const authors =  await getAuthors()
-  console.log(authors)
+
+    const authors = await getAuthorsData()
+    console.log(authors)
+  
+
   return (
      <aside className="sideBar-element" aria-label="Top Writers">
-          {/* <h3 className="trending-title">
+          <h3 className="trending-title">
             Top writers <BsFeather style={{ fontSize: '1rem' }} />
           </h3>
           <nav aria-label="Top writers navigation">
@@ -38,7 +51,7 @@ const TopWriters = async () => {
                 </li>
               ))}
             </ul>
-          </nav> */}
+          </nav>
         </aside>
   )
 }

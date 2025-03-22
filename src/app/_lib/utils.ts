@@ -1,5 +1,6 @@
 import {  doc, getDoc, getDocs, collection } from "firebase/firestore";
 import { db } from "../_db/Firebase";
+import { getArticles } from "../api/articles/route";
 
 
 // The updated desanitizeFromFirestore function with types
@@ -160,3 +161,20 @@ function desanitizeFromFirestore(data: any): FirestoreData {
   
     return authors;
   };
+
+  export const trending = async(): Promise<any[]> => {
+    const articles = await getArticles();
+    const tags: string[] = []
+    articles.forEach((article) => { 
+       article.tags.forEach((tag) => {
+        tags.push(tag)
+       })
+    })
+    console.log(articles)
+    const tagsCount = tags.reduce((accumulator: any, currentValue: any) => {
+      accumulator[currentValue] = (accumulator[currentValue] || 0) + 1;
+      return accumulator;
+    }, {}); // Initial value is an empty object
+    const sortedTags: any[] = Object.entries(tagsCount).sort((a: any, b: any) => b[1] - a[1]);
+    return sortedTags
+  }

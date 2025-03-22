@@ -1,14 +1,16 @@
 import React from 'react'
+import TopWriters from './topWriters'
+import PopularCategories from './popularCategories'
+import "./sidebar.css"
 
-const sidebar = () => {
+const Sidebar = () => {
   return (
-    <div>
+    <div className='sidebar'>
       <PopularCategories
         />
-      <TopWriters
-        />
+      <TopWriters />
     </div>
   )
 }
 
-export default sidebar
+export default Sidebar

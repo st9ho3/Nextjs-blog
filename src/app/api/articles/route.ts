@@ -1,7 +1,6 @@
 import { collection, setDoc, doc, getDoc, getDocs, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { db } from "../../_db/Firebase"
-import { get } from "http";
 import { NextResponse } from "next/server";
 
 /**
