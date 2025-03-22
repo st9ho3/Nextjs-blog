@@ -1,6 +1,6 @@
 import { collection, setDoc, doc, getDoc, getDocs, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { db } from "../../db/Firebase"
+import { db } from "../../_db/Firebase"
 import { get } from "http";
 import { NextResponse } from "next/server";
 
@@ -13,51 +13,14 @@ import { NextResponse } from "next/server";
  */
 export const getArticles = async (): Promise<Article[]> => {
   const querySnapshot = await getDocs(collection(db, "articles"));
-  const articles: any[] = [];
+  const articles: Article[] = [];
 
   // Map through the documents and add them to the articles array
   querySnapshot.forEach((doc) => {
-     articles.push(doc.data())
+     articles.push(doc.data() as Article)
   });
   console.log(articles)
   return articles;
-};
-
-/**
- * @description Retrieves a specific article from Firestore by its ID.
- * @async
- * @function getArticle
- * @param {string} id - The ID of the article to retrieve.
- * @returns {Promise<object|null>} A promise that resolves to the article data if found, or null if not found.
- * @throws {Error} Throws an error if the document retrieval fails.
- */
-
-export const getArticle = async (id: string) => {
-  try {
-    const docRef = doc(db, "articles", id);
-    const docSnap = await getDoc(docRef);
-
-    if (!docSnap.exists()) {
-      console.log("No document found with ID:", id);
-      return null;
-    }
-
-    // Get raw data and desanitize
-    const rawData = docSnap.data();
-    const desanitizedData = desanitizeFromFirestore(rawData);
-
-    // Return the processed data with document ID
-    return {
-      id: docSnap.id,
-      ...desanitizedData,
-      createdAt: rawData.createdAt?.toDate?.(), // Safe conversion
-      updatedAt: rawData.updatedAt?.toDate?.()
-    };
-
-  } catch (error) {
-    console.error("Error fetching document:", error);
-    throw new Error("Failed to retrieve article. Please try again later.");
-  }
 };
 
 export const GET = async (request: Request) => {

@@ -1,3 +1,7 @@
+import {  doc, getDoc, getDocs, collection } from "firebase/firestore";
+import { db } from "../_db/Firebase";
+
+
 // The updated desanitizeFromFirestore function with types
 function desanitizeFromFirestore(data: any): FirestoreData {
     // Safety check for content array
@@ -51,6 +55,42 @@ function desanitizeFromFirestore(data: any): FirestoreData {
   }
 
   /**
+   * @description Retrieves a specific article from Firestore by its ID.
+   * @async
+   * @function getArticle
+   * @param {string} id - The ID of the article to retrieve.
+   * @returns {Promise<object|null>} A promise that resolves to the article data if found, or null if not found.
+   * @throws {Error} Throws an error if the document retrieval fails.
+   */
+  export const getArticle = async (id: string): Promise<any> => {
+    try {
+      const docRef = doc(db, "articles", id);
+      const docSnap = await getDoc(docRef);
+  
+      if (!docSnap.exists()) {
+        console.log("No document found with ID:", id);
+        return null;
+      }
+  
+      // Get raw data and desanitize
+      const rawData = docSnap.data();
+      const desanitizedData = desanitizeFromFirestore(rawData);
+  
+      // Return the processed data with document ID
+      return {
+        id: docSnap.id,
+        ...desanitizedData,
+        createdAt: rawData.createdAt?.toDate?.(), // Safe conversion
+        updatedAt: rawData.updatedAt?.toDate?.()
+      };
+  
+    } catch (error) {
+      console.error("Error fetching document:", error);
+      throw new Error("Failed to retrieve article. Please try again later.");
+    }
+  };
+
+  /**
    * @description Extracts the main title (h1 heading) from an article's content.
    * @function getTitles
    * @param {object} article - The article object.
@@ -100,4 +140,23 @@ function desanitizeFromFirestore(data: any): FirestoreData {
       (content) => content.type === 'image'
     );
     return firstContent.length > 0 ? firstContent[0].props.url : 'No image';
+  };
+
+  /**
+   * @description Retrieves all authors from Firestore.
+   * @async
+   * @function getAuthors
+   * @returns {Promise<object[]>} A promise that resolves to an array of author data objects.
+   * @throws {Error} Throws an error if the document retrieval fails.
+   */
+  export const getAuthors = async (): Promise<Author[]> => {
+    const querySnapshot = await getDocs(collection(db, "authors"));
+    const authors: Author[] = [];
+  
+    // Map through the documents and add them to the authors array
+    querySnapshot.forEach((doc) => {
+      authors.push(doc.data() as Author);
+    });
+  
+    return authors;
   };

@@ -1,15 +1,13 @@
-"use client"
+"use client";
 
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Button from './button';
 import Link from 'next/link';
-import "./header.css";
-import "../global.css";
+import './header.css';
+import '../global.css';
 import { LuMenu } from 'react-icons/lu';
-import {  Inter } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import { usePathname } from 'next/navigation';
-
 
 const inter = Inter({
   weight: ['100', '500'], // Inter weights (100 to 900)
@@ -17,19 +15,18 @@ const inter = Inter({
 });
 
 const Header = () => {
-  
-  const isWrite: string = usePathname()
+  const isWrite: string = usePathname();
 
   useEffect(() => {
-      const header: any = document.querySelector('.header');
-      const handleScroll = () => {
-        header.classList.toggle('fixed', window.scrollY > 0);
-      };
-  
-      window.addEventListener('scroll', handleScroll);
-      return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-    
+    const header: HTMLElement | null = document.querySelector('.header');
+    const handleScroll = () => {
+      header?.classList.toggle('fixed', window.scrollY > 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div>
       <div className="header">
@@ -39,22 +36,20 @@ const Header = () => {
           </h1>
         </Link>
 
-        <div className='headerRight'>
-        <Button
-          param={isWrite}
-          text={isWrite === "/write" ? 'Publish it' : 'Start Writting'}
-        />
+        <div className="headerRight">
+          <Button
+            param={isWrite}
+            text={isWrite === '/write' ? 'Publish it' : 'Start Writting'}
+          />
 
-        <LuMenu className="menu" />
-        
-        <img
-          src='man.png'
-          className="profile-info-pic top"
-          alt="profile-pic"
-        />
+          <LuMenu className="menu" />
+
+          <img
+            src="man.png"
+            className="profile-info-pic top"
+            alt="profile-pic"
+          />
         </div>
-
-       
       </div>
     </div>
   );
