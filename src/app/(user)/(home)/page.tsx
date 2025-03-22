@@ -6,7 +6,7 @@ import Sidebar from '@/app/(components)/sidebar';
 
 async function getHomeData(): Promise<Article[]> {
   const res = await fetch('http://localhost:3000/api/articles', {
-    cache: 'force-cache',
+    cache: 'no-cache',
   });
 
 
@@ -22,9 +22,9 @@ const page = async () => {
   return (
     <div className="homepage">
       {<div className="home">
-        {data.map((article) => (
+        {data.length > 0 ? data.map((article) => (
           <ArticlePreview key={article.id} article={article} />
-        ))}
+        )): <h2>Loading Articles...</h2> }
       </div>}
       <Sidebar /> 
     

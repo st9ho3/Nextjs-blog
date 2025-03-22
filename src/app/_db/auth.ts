@@ -1,7 +1,6 @@
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import {  setDoc, doc} from "firebase/firestore";
-import { db } from "../db/Firebase";
-
+import { db } from "./Firebase";
 
 const signUp = async (email: string, password: string): Promise<string> => {
   const auth = getAuth();

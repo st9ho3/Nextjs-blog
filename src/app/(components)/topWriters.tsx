@@ -2,10 +2,11 @@ import React from 'react'
 import Link from 'next/link';
 import { BsFeather } from 'react-icons/bs';
 import './topWriters.css'
+import { sortAuthors } from '../_lib/utils';
 
 export async function getAuthorsData(): Promise<Author[]> {
   const res = await fetch('http://localhost:3000/api/authors', {
-    cache: 'force-cache',
+    cache: 'no-cache',
   });
 
   if (!res.ok) {
@@ -16,19 +17,18 @@ export async function getAuthorsData(): Promise<Author[]> {
 }
 
 const TopWriters = async () => {
-
     const authors = await getAuthorsData()
-    console.log(authors)
-  
+    
+      const sortedAuthors = sortAuthors(authors)
 
   return (
      <aside className="sideBar-element" aria-label="Top Writers">
           <h3 className="trending-title">
             Top writers <BsFeather style={{ fontSize: '1rem' }} />
           </h3>
-          <nav aria-label="Top writers navigation">
+          {sortedAuthors ? <nav aria-label="Top writers navigation">
             <ul>
-              {authors.map((user) => (
+              {sortedAuthors.map((user) => (
                 <li key={user.id}>
                   <Link
                     href={`/${user.name}`}
@@ -51,9 +51,10 @@ const TopWriters = async () => {
                 </li>
               ))}
             </ul>
-          </nav>
+          </nav> : <p>Loading Writers...</p> }
         </aside>
   )
 }
+
 
 export default TopWriters

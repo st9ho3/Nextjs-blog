@@ -1,6 +1,6 @@
 // app/api/register/route.ts
 import { NextResponse } from "next/server";
-import { registerUser } from "@/app/db/auth"; // Adjust the import based on your project structure
+import { registerUser } from "@/app/_db/auth"; // Adjust the import based on your project structure
 
 export async function POST(request: Request) {
 console.log("hello")

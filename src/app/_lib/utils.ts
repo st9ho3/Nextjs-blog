@@ -178,3 +178,12 @@ function desanitizeFromFirestore(data: any): FirestoreData {
     const sortedTags: any[] = Object.entries(tagsCount).sort((a: any, b: any) => b[1] - a[1]);
     return sortedTags
   }
+
+  export const sortAuthors = (authors: Author[]) => {
+    if (authors?.length) {
+      const sortedUsers = authors.sort((a, b) => b.articles.length - a.articles.length);
+      const users = sortedUsers.slice(0, 7);
+      console.log(users)
+      return users
+    }
+  }
