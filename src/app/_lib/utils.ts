@@ -49,3 +49,55 @@ function desanitizeFromFirestore(data: any): FirestoreData {
       }),
     };
   }
+
+  /**
+   * @description Extracts the main title (h1 heading) from an article's content.
+   * @function getTitles
+   * @param {object} article - The article object.
+   * @param {object[]} article.content - An array of content blocks representing the article's content.
+   * @returns {string} The text content of the first h1 heading found in the article, or an empty string if no h1 is found.
+   */
+  export const getTitles = (article: Article): string => {
+    const firstContent = article.content.filter(
+      (content) => content.type === 'heading' && content.props.level === 1
+    );
+    const filteredHeading = firstContent[0];
+  
+    // Return empty string if no title is found, prevents errors when accessing properties of undefined
+    const title = filteredHeading?.content[0]?.text || "";
+    return title;
+  };
+  
+  /**
+   * @description Extracts the first subtitle (h2 or h3 heading) from an article's content.
+   * @function getSubTitles
+   * @param {object} article - The article object.
+   * @param {object[]} article.content - An array of content blocks representing the article's content.
+   * @returns {string} The text content of the first h2 or h3 heading found in the article, or 'No subtitle' if none is found.
+   */
+  export const getSubTitles = (article: Article): string => {
+    const firstContent = article.content.filter(
+      (content) =>
+        content.type === 'heading' &&
+        (content.props.level === 2 || content.props.level === 3)
+    );
+    const filteredHeading = firstContent?.[0] || 'No subtitle';
+  
+    return filteredHeading === 'No subtitle'
+      ? 'No subtitle'
+      : filteredHeading.content[0].text;
+  };
+  
+  /**
+   * @description Extracts the URL of the first image from an article's content.
+   * @function getImage
+   * @param {object} article - The article object.
+   * @param {object[]} article.content - An array of content blocks representing the article's content.
+   * @returns {string} The URL of the first image found in the article, or 'No image' if none is found.
+   */
+  export const getImage = (article: Article): string => {
+    const firstContent = article.content.filter(
+      (content) => content.type === 'image'
+    );
+    return firstContent.length > 0 ? firstContent[0].props.url : 'No image';
+  };

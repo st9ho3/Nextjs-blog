@@ -2,17 +2,23 @@ import ArticlePreview from '@/app/(components)/articlePreview'
 import React from 'react'
 import "./home.css"
 import "../../(components)/header.css"
-import { getArticles } from '@/app/api/home/route'
 
 
+async function getHomeData(): Promise<Article[]> {
+  const res = await fetch("http://localhost:3000/api/home", {
+    cache: "force-cache",
+  });
+  if (!res.ok) throw new Error("Failed to fetch data");
+  return res.json();
+}
 
 
 const page = async () => {
-  const response = await fetch('/api/home')
+  const data = await getHomeData()
   return (
     <div className='homepage'>
       <div className='home'>
-      {response.map((article) => 
+      {data.map((article) => 
       <ArticlePreview
         key={article.id}
        article={article}
