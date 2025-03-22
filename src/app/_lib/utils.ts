@@ -1,17 +1,23 @@
 import {  doc, getDoc, getDocs, collection } from "firebase/firestore";
 import { db } from "../_db/Firebase";
-import { getArticles } from "../api/articles/route";
 
+type JsonValue =
+  | string
+  | number
+  | boolean
+  | null
+  | JsonValue[]
+  | { [key: string]: JsonValue };
 
 // The updated desanitizeFromFirestore function with types
-function desanitizeFromFirestore(data: any): FirestoreData {
+function desanitizeFromFirestore(data: FirestoreData): FirestoreData {
     // Safety check for content array
     if (!data?.content || !Array.isArray(data.content)) {
       console.error("Invalid document structure:", data);
       return data; // Return original data as fallback
     }
   
-    const restoreNestedArrays = (obj: any): any => {
+    const restoreNestedArrays = (obj: JsonValue): JsonValue => {
       if (Array.isArray(obj)) {
         return obj.map(restoreNestedArrays);
       }
@@ -23,7 +29,7 @@ function desanitizeFromFirestore(data: any): FirestoreData {
         // Recursively process object properties
         return Object.fromEntries(
           Object.entries(obj).map(
-            ([key, value]: [string, any]) => [key, restoreNestedArrays(value)]
+            ([key, value]: [string, JsonValue]) => [key, restoreNestedArrays(value)]
           )
         );
       }
@@ -55,6 +61,18 @@ function desanitizeFromFirestore(data: any): FirestoreData {
     };
   }
 
+  export const getArticles = async (): Promise<Article[]> => {
+    const querySnapshot = await getDocs(collection(db, "articles"));
+    const articles: Article[] = [];
+  
+    // Map through the documents and add them to the articles array
+    querySnapshot.forEach((doc) => {
+       articles.push(doc.data() as Article)
+    });
+    console.log(articles)
+    return articles;
+  };
+
   /**
    * @description Retrieves a specific article from Firestore by its ID.
    * @async
@@ -63,14 +81,13 @@ function desanitizeFromFirestore(data: any): FirestoreData {
    * @returns {Promise<object|null>} A promise that resolves to the article data if found, or null if not found.
    * @throws {Error} Throws an error if the document retrieval fails.
    */
-  export const getArticle = async (id: string): Promise<any> => {
+  export const getArticle = async (id: string): Promise<Article> => {
     try {
       const docRef = doc(db, "articles", id);
       const docSnap = await getDoc(docRef);
   
       if (!docSnap.exists()) {
-        console.log("No document found with ID:", id);
-        return null;
+        throw new Error(`No document found with ID: ${id}`);
       }
   
       // Get raw data and desanitize
@@ -79,11 +96,8 @@ function desanitizeFromFirestore(data: any): FirestoreData {
   
       // Return the processed data with document ID
       return {
-        id: docSnap.id,
-        ...desanitizedData,
-        createdAt: rawData.createdAt?.toDate?.(), // Safe conversion
-        updatedAt: rawData.updatedAt?.toDate?.()
-      };
+        ...desanitizedData
+            } as Article;
   
     } catch (error) {
       console.error("Error fetching document:", error);
@@ -162,7 +176,9 @@ function desanitizeFromFirestore(data: any): FirestoreData {
     return authors;
   };
 
-  export const trending = async(): Promise<any[]> => {
+  type Output = [string, number]
+
+  export const trending = async(): Promise<Output[]> => {
     const articles = await getArticles();
     const tags: string[] = []
     articles.forEach((article) => { 
@@ -170,12 +186,12 @@ function desanitizeFromFirestore(data: any): FirestoreData {
         tags.push(tag)
        })
     })
-    console.log(articles)
-    const tagsCount = tags.reduce((accumulator: any, currentValue: any) => {
+    console.log(tags)
+    const tagsCount = tags.reduce((accumulator: Record<string, number>, currentValue: string) => {
       accumulator[currentValue] = (accumulator[currentValue] || 0) + 1;
       return accumulator;
     }, {}); // Initial value is an empty object
-    const sortedTags: any[] = Object.entries(tagsCount).sort((a: any, b: any) => b[1] - a[1]);
+    const sortedTags = Object.entries(tagsCount).sort((a, b) => b[1] - a[1]);
     return sortedTags
   }
 

@@ -3,10 +3,12 @@ import Link from 'next/link';
 import { BsFeather } from 'react-icons/bs';
 import './topWriters.css'
 import { sortAuthors } from '../_lib/utils';
+import Image from 'next/image';
 
 export async function getAuthorsData(): Promise<Author[]> {
   const res = await fetch('http://localhost:3000/api/authors', {
-    cache: 'no-cache',
+    cache: 'force-cache',
+    next: {revalidate: 60}
   });
 
   if (!res.ok) {
@@ -35,7 +37,9 @@ const TopWriters = async () => {
                     aria-label={`View articles by ${user.name}`}
                   >
                     <div className="trending-writers">
-                      <img
+                      <Image
+                        height={50}
+                        width={50}
                         className="profile-info-pic"
                         src={user.profilePicture}
                         alt={`Profile picture of ${user.name}`}

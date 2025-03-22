@@ -6,13 +6,9 @@ import Link from 'next/link';
 import './header.css';
 import '../global.css';
 import { LuMenu } from 'react-icons/lu';
-import { Inter } from 'next/font/google';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
-const inter = Inter({
-  weight: ['100', '500'], // Inter weights (100 to 900)
-  subsets: ['latin'], // Use the desired subset
-});
 
 const Header = () => {
   const isWrite: string = usePathname();
@@ -44,8 +40,10 @@ const Header = () => {
 
           <LuMenu className="menu" />
 
-          <img
-            src="man.png"
+          <Image
+            width={50}
+            height={50}
+            src="/man.png"
             className="profile-info-pic top"
             alt="profile-pic"
           />

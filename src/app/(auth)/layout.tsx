@@ -1,8 +1,6 @@
 import "./auth.css"
 import { Inter } from 'next/font/google';
 
-
-
 const inter = Inter({
   weight: ['100', '500'], // Inter weights (100 to 900)
   subsets: ['latin'], // Use the desired subset

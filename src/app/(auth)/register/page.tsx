@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 
 const RegisterForm = () => {
@@ -46,7 +47,7 @@ const RegisterForm = () => {
   return (
     <div className="auth-container">
       <div className="left-section">
-        <img src="Logo.jpeg" alt="Decorative" className="auth-image" />
+        <Image src="Logo.jpeg" alt="Decorative" className="auth-image" />
       </div>
       <div className="right-section">
         <form className="auth-form" onSubmit={handleSubmit}>

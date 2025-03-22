@@ -1,7 +1,5 @@
-import { collection, setDoc, doc, getDoc, getDocs, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { db } from "../../_db/Firebase"
 import { NextResponse } from "next/server";
+import { getArticles } from "@/app/_lib/utils";
 
 /**
  * @description Retrieves all articles from Firestore.
@@ -10,17 +8,7 @@ import { NextResponse } from "next/server";
  * @returns {Promise<object[]>} A promise that resolves to an array of article data objects.
  * @throws {Error} Throws an error if the document retrieval fails.
  */
-export const getArticles = async (): Promise<Article[]> => {
-  const querySnapshot = await getDocs(collection(db, "articles"));
-  const articles: Article[] = [];
 
-  // Map through the documents and add them to the articles array
-  querySnapshot.forEach((doc) => {
-     articles.push(doc.data() as Article)
-  });
-  console.log(articles)
-  return articles;
-};
 
 export const GET = async (request: Request) => {
     const {searchParams} = new URL(request.url)
@@ -32,7 +20,7 @@ export const GET = async (request: Request) => {
         if(!article) {
             return NextResponse.json({error:"Article not found"}, {status: 404})
         }
-        return article
+        return NextResponse.json(article)
     }
     return NextResponse.json(totalArticles)
 }

@@ -5,6 +5,7 @@ import { FaComment } from 'react-icons/fa';
 import Tag from './tag';
 import './articlePreview.css';
 import { getImage, getSubTitles, getTitles } from '../_lib/utils';
+import Image from 'next/image';
 
 const ArticlePreview = ({ article }: { article: Article }) => {
   const title = getTitles(article);
@@ -15,7 +16,9 @@ const ArticlePreview = ({ article }: { article: Article }) => {
     <div className="home-header-container">
       <div className="home-header">
         <div className="info-container">
-          <img
+          <Image
+            width={50}
+            height={50}
             className="profile-info-pic"
             src={article.author?.img}
             alt="profile-pic"
@@ -65,7 +68,7 @@ const ArticlePreview = ({ article }: { article: Article }) => {
         href={`${article.author?.name || 'Unknown'}/${article.id}`}
         className="image-link"
       >
-        <img className="article-image" src={image} alt="article image" />
+        <Image className="article-image" width={150} height={150} src={image} alt="article image" />
       </Link>
     </div>
   );

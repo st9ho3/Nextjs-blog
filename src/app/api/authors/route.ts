@@ -1,20 +1,8 @@
-import { collection, setDoc, doc, getDoc, getDocs, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { db } from "../../_db/Firebase"
+
 import { NextResponse } from "next/server";
+import { getAuthors } from "@/app/_lib/utils";
 
-export const getAuthors = async (): Promise<Author[]> => {
-    const querySnapshot = await getDocs(collection(db, "authors"));
-    const authors: Author[] = [];
 
-    // Iterate through the documents and add each one to the authors array
-    querySnapshot.forEach((doc) => {
-        authors.push(doc.data() as Author);
-    });
-    console.log(authors)
-
-    return authors;
-};
 
 export const GET = async () => {
     try {

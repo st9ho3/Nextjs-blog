@@ -1,12 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const page = () => {
   return (
     <div>
       <div className="auth-container">
             <div className="left-section">
-              <img 
+              <Image 
                 src='Logo.jpeg'
                 alt="Decorative" 
                 className="auth-image"
@@ -47,7 +48,7 @@ const page = () => {
                   Sign in
                   </button>
                 <div className="auth-link">
-                  Don't have an account? <Link href="/register">Sign Up</Link>
+                  Don&apos;t have an account? <Link href="/register">Sign Up</Link>
                 </div>
               </form>
             </div>

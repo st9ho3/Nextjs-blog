@@ -45,11 +45,10 @@ interface Article {
   tags: string[];
 }
 
-// Define interfaces for your Firestore data
-interface FirestoreData {
-  content: Block[];
-  [key: string]: any;
-}
+type FirestoreData = {
+  content?: Block[]; // assuming Block [] is expected for content
+  // add any additional properties that you expect
+} & { [key: string]: JsonValue | undefined };
 
 interface Block {
   type: string;

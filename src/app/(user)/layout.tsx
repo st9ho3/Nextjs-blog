@@ -7,8 +7,7 @@ export const metadata = {
   export default function UserLayout({
     children,
   }: {
-    children: React.ReactNode,
-    params : string
+    children: React.ReactNode
   }) {
 
     return (

@@ -6,7 +6,8 @@ import Sidebar from '@/app/(components)/sidebar';
 
 async function getHomeData(): Promise<Article[]> {
   const res = await fetch('http://localhost:3000/api/articles', {
-    cache: 'no-cache',
+    cache: 'force-cache',
+    next: {revalidate: 60}
   });
 
 
