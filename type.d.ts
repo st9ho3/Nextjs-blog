@@ -76,4 +76,39 @@ interface Cell {
   [key: string]: any;
 }
 
+type JsonValue =
+  | string
+  | number
+  | boolean
+  | null
+  | JsonValue[]
+  | { [key: string]: JsonValue };
+
+  type JsonContent =
+  | { [key: string]: JsonContent }
+
+  type BlockNoteViewProps = {
+    editor: BlockNoteEditor;
+    editable?: boolean;
+    onSelectionChange?: () => void;
+    onChange?: () => void;
+    theme?:
+      | "light"
+      | "dark"
+      | Theme
+      | {
+          light: Theme;
+          dark: Theme;
+        };
+    formattingToolbar?: boolean;
+    linkToolbar?: boolean;
+    sideMenu?: boolean;
+    slashMenu?: boolean;
+    emojiPicker?: boolean;
+    filePanel?: boolean;
+    tableHandles?: boolean;
+    comments?: boolean;
+    children?:
+   & HTMLAttributes<HTMLDivElement>};
+
   

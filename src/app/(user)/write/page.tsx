@@ -1,9 +1,10 @@
 import React from 'react'
+import Write from '@/app/(components)/write'
 
 const page = () => {
   return (
     <div>
-      Write Page
+      <Write />
     </div>
   )
 }

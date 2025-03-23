@@ -1,13 +1,32 @@
 import {  doc, getDoc, getDocs, collection } from "firebase/firestore";
 import { db } from "../_db/Firebase";
 
-type JsonValue =
-  | string
-  | number
-  | boolean
-  | null
-  | JsonValue[]
-  | { [key: string]: JsonValue };
+/**
+ * @description Loads content from the session storage.
+ * @function loadFromStorage
+ * @returns {object|undefined} The parsed JSON object from session storage, or undefined if the key 'editorContent' is not found.
+ */
+export const loadFromStorage = () => {
+  const storageString = sessionStorage.getItem('editorContent');
+  return storageString ? JSON.parse(storageString) : undefined;
+};
+
+/**
+ * @description Saves content to the session storage as a JSON string.
+ * @function saveToStorage
+ * @param {object} jsonBlocks - The content to be saved, typically an object representing editor content.
+ */
+export const saveToStorage = (jsonBlocks: any) => {
+  sessionStorage.setItem('editorContent', JSON.stringify(jsonBlocks));
+};
+
+/**
+ * @description Clears the 'editorContent' item from session storage.
+ * @function clearStorage
+ */
+const clearStorage = () => {
+  sessionStorage.removeItem('editorContent');
+};
 
 // The updated desanitizeFromFirestore function with types
 function desanitizeFromFirestore(data: FirestoreData): FirestoreData {
@@ -96,8 +115,8 @@ function desanitizeFromFirestore(data: FirestoreData): FirestoreData {
   
       // Return the processed data with document ID
       return {
-        ...desanitizedData
-            } as Article;
+        ...desanitizedData as any
+            };
   
     } catch (error) {
       console.error("Error fetching document:", error);

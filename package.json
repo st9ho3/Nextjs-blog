@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@blocknote/core": "^0.26.0",
+    "@blocknote/mantine": "^0.26.0",
+    "@blocknote/react": "^0.26.0",
     "firebase": "^11.5.0",
     "next": "15.2.1",
     "react": "^19.0.0",
