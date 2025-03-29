@@ -1,5 +1,64 @@
+import { Block, PartialBlock } from "@blocknote/core";
 import {  doc, getDoc, getDocs, collection } from "firebase/firestore";
 import { db } from "../_db/Firebase";
+
+interface Author {
+    id: string; // Unique ID for the author
+    name: string; // Author's full name
+    email: string; // Author's email
+    password: string; // Hashed password for security
+    profilePicture: string; // URL to profile picture
+    bio: string; // Short bio
+    articles: string[]; // Array of article IDs written by the author
+    categories: string[]; // Categories the author is interested in
+    socialLinks: { // Social links object
+      twitter: string;
+      linkedin: string;
+      github: string;
+    };
+    createdAt: string; // Timestamp when the author profile was created
+    updatedAt: string; // Timestamp when the author profile was last updated
+  }
+
+  interface ArticleAuthor {
+    id: string;
+    img: string;
+    name: string;
+  }
+  
+  interface Metadata {
+    [key: string]: string; // Key-value pairs for metadata
+  }
+
+interface Article {
+  author: ArticleAuthor;
+  comments: string[]; // Adjust type to match the specific comment structure
+  content: PartialBlock[];
+  id: string;
+  likes: number;
+  metadata: Metadata;
+  date: string;
+  time: string;
+  updatetime: string;
+  saves: number;
+  shares: number;
+  tags: string[];
+}
+
+type FirestoreData = {
+  content?: Block[]; // assuming Block [] is expected for content
+  // add any additional properties that you expect
+} & { [key: string]: JsonValue | undefined };
+
+
+type JsonValue =
+  | string
+  | number
+  | boolean
+  | null
+  | JsonValue[]
+  | { [key: string]: JsonValue };
+
 
 /**
  * @description Loads content from the session storage.
@@ -16,17 +75,17 @@ export const loadFromStorage = () => {
  * @function saveToStorage
  * @param {object} jsonBlocks - The content to be saved, typically an object representing editor content.
  */
-export const saveToStorage = (jsonBlocks: any) => {
+export const saveToStorage = (jsonBlocks: Block[]) => {
   sessionStorage.setItem('editorContent', JSON.stringify(jsonBlocks));
 };
 
-/**
+/* *
  * @description Clears the 'editorContent' item from session storage.
  * @function clearStorage
  */
-const clearStorage = () => {
+/* const clearStorage = () => {
   sessionStorage.removeItem('editorContent');
-};
+}; */
 
 // The updated desanitizeFromFirestore function with types
 function desanitizeFromFirestore(data: FirestoreData): FirestoreData {
@@ -115,7 +174,7 @@ function desanitizeFromFirestore(data: FirestoreData): FirestoreData {
   
       // Return the processed data with document ID
       return {
-        ...desanitizedData as any
+        ...desanitizedData as TableBlock 
             };
   
     } catch (error) {

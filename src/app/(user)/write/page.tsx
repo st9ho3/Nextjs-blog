@@ -1,11 +1,25 @@
+"use client"
+
 import React from 'react'
-import Write from '@/app/(components)/write'
+import './mystyles.css'
+import dynamic from 'next/dynamic';
+
+import TextareaAutosize from 'react-textarea-autosize';
+
+const Editor = dynamic(() => import("../../../editor/editor"), {ssr: false})
 
 const page = () => {
+
   return (
-    <div>
-      <Write />
-    </div>
+    <main className="main">
+      <div className="container">
+        <TextareaAutosize
+          placeholder="Title"
+          className="custom-textarea"
+        />
+        <Editor />
+      </div>
+    </main>
   )
 }
 

@@ -1,0 +1,37 @@
+/* Ensure the main element spans at least the full viewport height */
+.main {
+    
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Create a flex container with column layout and the specified padding and width */
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: solid thin black;
+    padding: 2.5rem 6rem; /* Vertical: 2.5rem (py-10), Horizontal: 6rem (px-24) */
+    width: 80%;
+  }
+  
+  /* Style the auto-resizing textarea */
+  .custom-textarea {
+    width: fit-content;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    resize: none;
+    appearance: none;
+    overflow: hidden;
+    background-color: transparent;
+    border: none;
+    font-size: 3rem; /* Mimics Tailwind's text-5xl */
+    line-height: 1;  /* Adjust line-height as needed */
+    font-weight: 700; /* Mimics Tailwind's font-bold */
+    color: rgb(51, 51, 51);
+  }
+  .custom-textarea:focus {
+    outline: none;
+  }
+  

@@ -1,3 +1,4 @@
+import { PartialBlock } from "@blocknote/core";
 
 
 interface Author {
@@ -50,31 +51,6 @@ type FirestoreData = {
   // add any additional properties that you expect
 } & { [key: string]: JsonValue | undefined };
 
-interface Block {
-  type: string;
-  content?: any;
-  [key: string]: any;
-}
-
-interface TableBlock extends Block {
-  type: 'table';
-  content: TableBlockContent;
-}
-
-interface TableBlockContent {
-  rows: Row[];
-  [key: string]: any;
-}
-
-interface Row {
-  cells: Cell[];
-  [key: string]: any;
-}
-
-interface Cell {
-  cell: any[]; // Change this type to something more specific if you know the structure
-  [key: string]: any;
-}
 
 type JsonValue =
   | string
@@ -85,30 +61,8 @@ type JsonValue =
   | { [key: string]: JsonValue };
 
   type JsonContent =
-  | { [key: string]: JsonContent }
+  | { [key: string]: JsonContent };
 
-  type BlockNoteViewProps = {
-    editor: BlockNoteEditor;
-    editable?: boolean;
-    onSelectionChange?: () => void;
-    onChange?: () => void;
-    theme?:
-      | "light"
-      | "dark"
-      | Theme
-      | {
-          light: Theme;
-          dark: Theme;
-        };
-    formattingToolbar?: boolean;
-    linkToolbar?: boolean;
-    sideMenu?: boolean;
-    slashMenu?: boolean;
-    emojiPicker?: boolean;
-    filePanel?: boolean;
-    tableHandles?: boolean;
-    comments?: boolean;
-    children?:
-   & HTMLAttributes<HTMLDivElement>};
+
 
   
