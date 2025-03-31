@@ -28,12 +28,14 @@ const Editor: React.FC<EditorProps> = (
 
     
   return (
-    <div className='writeEditor-container'>
+    <div className="writeEditor-container">
     <BlockNoteView
       editor={editor}
+      data-changing-font-demo
       editable={editable}
       theme="light"
       onChange={onChange}
+      
       />
     </div>
   )

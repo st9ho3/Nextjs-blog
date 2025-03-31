@@ -5,16 +5,16 @@
     justify-content: center;
   }
   
-  /* Create a flex container with column layout and the specified padding and width */
-  .container {
+  /* /* Create a flex container with column layout and the specified padding and width */
+   .container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: solid thin black;
+    border: solid thin rgb(6, 235, 41);
     padding: 2.5rem 6rem; /* Vertical: 2.5rem (py-10), Horizontal: 6rem (px-24) */
     width: 80%;
-  }
+}
   
   /* Style the auto-resizing textarea */
   .custom-textarea {
@@ -25,7 +25,7 @@
     appearance: none;
     overflow: hidden;
     background-color: transparent;
-    border: none;
+    border: solid thin rgb(235, 6, 235);
     font-size: 3rem; /* Mimics Tailwind's text-5xl */
     line-height: 1;  /* Adjust line-height as needed */
     font-weight: 700; /* Mimics Tailwind's font-bold */

@@ -1,4 +1,4 @@
-import { Block, PartialBlock } from "@blocknote/core";
+import { Block } from "@blocknote/core";
 import {  doc, getDoc, getDocs, collection } from "firebase/firestore";
 import { db } from "../_db/Firebase";
 
