@@ -1,5 +1,3 @@
-import { PartialBlock } from "@blocknote/core";
-
 
 interface Author {
     id: string; // Unique ID for the author
@@ -64,5 +62,5 @@ type JsonValue =
   | { [key: string]: JsonContent };
 
 
-
+  
   

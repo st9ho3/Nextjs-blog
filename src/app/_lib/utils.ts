@@ -2,64 +2,6 @@ import { Block, PartialBlock } from "@blocknote/core";
 import {  doc, getDoc, getDocs, collection } from "firebase/firestore";
 import { db } from "../_db/Firebase";
 
-interface Author {
-    id: string; // Unique ID for the author
-    name: string; // Author's full name
-    email: string; // Author's email
-    password: string; // Hashed password for security
-    profilePicture: string; // URL to profile picture
-    bio: string; // Short bio
-    articles: string[]; // Array of article IDs written by the author
-    categories: string[]; // Categories the author is interested in
-    socialLinks: { // Social links object
-      twitter: string;
-      linkedin: string;
-      github: string;
-    };
-    createdAt: string; // Timestamp when the author profile was created
-    updatedAt: string; // Timestamp when the author profile was last updated
-  }
-
-  interface ArticleAuthor {
-    id: string;
-    img: string;
-    name: string;
-  }
-  
-  interface Metadata {
-    [key: string]: string; // Key-value pairs for metadata
-  }
-
-interface Article {
-  author: ArticleAuthor;
-  comments: string[]; // Adjust type to match the specific comment structure
-  content: PartialBlock[];
-  id: string;
-  likes: number;
-  metadata: Metadata;
-  date: string;
-  time: string;
-  updatetime: string;
-  saves: number;
-  shares: number;
-  tags: string[];
-}
-
-type FirestoreData = {
-  content?: Block[]; // assuming Block [] is expected for content
-  // add any additional properties that you expect
-} & { [key: string]: JsonValue | undefined };
-
-
-type JsonValue =
-  | string
-  | number
-  | boolean
-  | null
-  | JsonValue[]
-  | { [key: string]: JsonValue };
-
-
 /**
  * @description Loads content from the session storage.
  * @function loadFromStorage
@@ -87,57 +29,6 @@ export const saveToStorage = (jsonBlocks: Block[]) => {
   sessionStorage.removeItem('editorContent');
 }; */
 
-// The updated desanitizeFromFirestore function with types
-function desanitizeFromFirestore(data: FirestoreData): FirestoreData {
-    // Safety check for content array
-    if (!data?.content || !Array.isArray(data.content)) {
-      console.error("Invalid document structure:", data);
-      return data; // Return original data as fallback
-    }
-  
-    const restoreNestedArrays = (obj: JsonValue): JsonValue => {
-      if (Array.isArray(obj)) {
-        return obj.map(restoreNestedArrays);
-      }
-      if (obj && typeof obj === "object") {
-        // Convert array-like objects to real arrays
-        if (Object.keys(obj).every((key) => !isNaN(Number(key)))) {
-          return Object.values(obj).map(restoreNestedArrays);
-        }
-        // Recursively process object properties
-        return Object.fromEntries(
-          Object.entries(obj).map(
-            ([key, value]: [string, JsonValue]) => [key, restoreNestedArrays(value)]
-          )
-        );
-      }
-      return obj;
-    };
-  
-    // Process the content array specifically
-    return {
-      ...data,
-      content: data.content.map((block: Block) => {
-        if (block?.type === "table") {
-          // Tell TypeScript that this block is a TableBlock.
-          const tableBlock = block as TableBlock;
-          return {
-            ...tableBlock,
-            content: {
-              ...tableBlock.content,
-              rows:
-                tableBlock.content?.rows?.map((row: Row) => ({
-                  cells: (row.cells || []).map((cell: Cell) =>
-                    restoreNestedArrays(cell?.cell || [])
-                  ),
-                })) || [],
-            },
-          };
-        }
-        return block;
-      }),
-    };
-  }
 
   export const getArticles = async (): Promise<Article[]> => {
     const querySnapshot = await getDocs(collection(db, "articles"));
@@ -147,7 +38,7 @@ function desanitizeFromFirestore(data: FirestoreData): FirestoreData {
     querySnapshot.forEach((doc) => {
        articles.push(doc.data() as Article)
     });
-    console.log(articles)
+    
     return articles;
   };
 
@@ -170,12 +61,9 @@ function desanitizeFromFirestore(data: FirestoreData): FirestoreData {
   
       // Get raw data and desanitize
       const rawData = docSnap.data();
-      const desanitizedData = desanitizeFromFirestore(rawData);
   
       // Return the processed data with document ID
-      return {
-        ...desanitizedData as TableBlock 
-            };
+      return rawData as Article;
   
     } catch (error) {
       console.error("Error fetching document:", error);
@@ -232,6 +120,7 @@ function desanitizeFromFirestore(data: FirestoreData): FirestoreData {
     const firstContent = article.content.filter(
       (content) => content.type === 'image'
     );
+    console.log(firstContent);
     return firstContent.length > 0 ? firstContent[0].props.url : 'No image';
   };
 
@@ -277,7 +166,7 @@ function desanitizeFromFirestore(data: FirestoreData): FirestoreData {
     if (authors?.length) {
       const sortedUsers = authors.sort((a, b) => b.articles.length - a.articles.length);
       const users = sortedUsers.slice(0, 7);
-      console.log(users)
+      
       return users
     }
   }

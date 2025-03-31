@@ -11,6 +11,7 @@ const ArticlePreview = ({ article }: { article: Article }) => {
   const title = getTitles(article);
   const subtitle = getSubTitles(article);
   const image = getImage(article);
+  
 
   return (
     <div className="home-header-container">
@@ -64,12 +65,12 @@ const ArticlePreview = ({ article }: { article: Article }) => {
         </Link>
       </div>
       {/* Article image link */}
-      <Link
+      { image !== "No image" && <Link
         href={`${article.author?.name || 'Unknown'}/${article.id}`}
         className="image-link"
       >
-        <Image className="article-image" width={150} height={150} src={image} alt="article image" />
-      </Link>
+       <Image className="article-image" width={150} height={150} src={image} alt="article image" /> 
+      </Link>}
     </div>
   );
 };
