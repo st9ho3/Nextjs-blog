@@ -2,42 +2,49 @@
 
 import React from 'react'
 import "./editor.css"
-import { useCreateBlockNote } from '@blocknote/react'
+import { useState, useEffect, useMemo } from 'react'
+import { saveToStorage, loadFromStorage } from '@/app/_lib/utils'
 import { BlockNoteView } from '@blocknote/mantine'
 import "@blocknote/core/fonts/inter.css"
-import "@blocknote/react/style.css"
+import "@blocknote/core/style.css"
 
-interface EditorProps {
-    initialContent?: string;
-    editable?: boolean;
-    onChange?: () => void;
+import { BlockNoteEditor, PartialBlock } from '@blocknote/core'
+
+const Editor = () => {
+
+    const [initialContent, setInitialContent] = useState<
+    PartialBlock[] | undefined | "loading"
+  >("loading");
+ 
+  // Loads the previously stored editor contents.
+  useEffect(() => {
+    const content = loadFromStorage()
+    setInitialContent(content)
+  }, []);
+ 
+  // Creates a new editor instance.
+  // We use useMemo + createBlockNoteEditor instead of useCreateBlockNote so we
+  // can delay the creation of the editor until the initial content is loaded.
+  const editor = useMemo(() => {
+    if (initialContent === "loading") {
+      return undefined;
+    }
+    return BlockNoteEditor.create({ initialContent });
+  }, [initialContent]);
+ 
+  if (editor === undefined) {
+    return "Loading content...";
   }
-
-const Editor: React.FC<EditorProps> = (
-  {
-    editable,
-    onChange,
-    initialContent
-  }) => {
-
-    const editor = useCreateBlockNote(
-      {
-       initialContent: initialContent ? JSON.parse(initialContent) : undefined,
-      }
-    )
 
     
   return (
-    <div className="writeEditor-container">
     <BlockNoteView
       editor={editor}
       data-changing-font-demo
-      editable={editable}
       theme="light"
-      onChange={onChange}
+      onChange={() => saveToStorage(editor.document)}
       
       />
-    </div>
   )
 }
 
