@@ -14,7 +14,7 @@ const Editor = () => {
 
     const [initialContent, setInitialContent] = useState<
     PartialBlock[] | undefined | "loading"
-  >("loading");
+  >("loading"); 
  
   // Loads the previously stored editor contents.
   useEffect(() => {
