@@ -1,6 +1,7 @@
-import { Block } from "@blocknote/core";
-import {  doc, getDoc, getDocs, collection } from "firebase/firestore";
+import { Block, PartialBlock } from "@blocknote/core";
+import {  doc, getDoc, getDocs, collection, setDoc } from "firebase/firestore";
 import { db } from "../_db/Firebase";
+import { nanoid } from "nanoid";
 
 /**
  * @description Loads content from the session storage.
@@ -19,6 +20,10 @@ export const loadFromStorage = () => {
  */
 export const saveToStorage = (jsonBlocks: Block[]) => {
   sessionStorage.setItem('editorContent', JSON.stringify(jsonBlocks));
+};
+
+const clearStorage = () => {
+  sessionStorage.removeItem('editorContent');
 };
 
 /* *
@@ -170,3 +175,43 @@ export const saveToStorage = (jsonBlocks: Block[]) => {
       return users
     }
   }
+
+  const createArticleObject = (/* author: Author */ content: PartialBlock[]) => {
+    const now = new Date();
+    const newId = nanoid(); // Generate a unique ID for the article
+  
+    const article = {
+      id: newId, // Generate a unique ID for the article
+      metadata: {
+        date: now.toLocaleDateString(), // Human-readable date
+        time: now.toLocaleTimeString(), // Human-readable time
+        updatetime: now.toISOString(), // ISO format for precise timestamps
+      },
+      /* author: { id: author.id, name: author.name, img: author.profilePicture }, // Author's name */
+      likes: 0, // Initial likes count
+      comments: [], // Initially an empty array for comments
+      shares: 0, // Initial shares count
+      saves: 0, // Initial saves count
+      content: content, // Article content (blocks)
+    };
+  
+    return article;
+  };
+
+  export const PublishArticle = async ( /* author: Author */) => {
+    const JSONContent = sessionStorage.getItem('editorContent');
+    const theContent = JSONContent ? JSON.parse(JSONContent) : undefined;
+  
+    // 1. Create deep copy of content
+    const content = JSON.parse(JSON.stringify(theContent));
+  
+    // 3. Create article with sanitized content
+    const newArticle = createArticleObject(/* author, */ content);
+  
+    // 4. Save to Firestore
+    const docRef = await setDoc(doc(db, "articles", newArticle.id), newArticle);
+    console.log("Document written with ID: ", newArticle.id);
+  
+    // 5. Clear storage
+    clearStorage();
+  };
