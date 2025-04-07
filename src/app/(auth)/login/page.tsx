@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import logoImage from "../../../../public/Logo.jpeg"
 
 const page = () => {
   return (
@@ -8,7 +9,7 @@ const page = () => {
       <div className="auth-container">
             <div className="left-section">
               <Image 
-                src='Logo.jpeg'
+                src={logoImage}
                 alt="Decorative" 
                 className="auth-image"
               />

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import logoImage from "../../../../public/Logo.jpeg"
 
 
 const RegisterForm = () => {
@@ -47,7 +48,7 @@ const RegisterForm = () => {
   return (
     <div className="auth-container">
       <div className="left-section">
-        <Image src="Logo.jpeg" alt="Decorative" className="auth-image" />
+        <Image src={logoImage} alt="Decorative" className="auth-image" />
       </div>
       <div className="right-section">
         <form className="auth-form" onSubmit={handleSubmit}>
