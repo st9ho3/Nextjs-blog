@@ -19,9 +19,10 @@ export async function getAuthorsData(): Promise<Author[]> {
 }
 
 const TopWriters = async () => {
-    const authors = await getAuthorsData()
-    
-      const sortedAuthors = sortAuthors(authors)
+
+  const authors = await getAuthorsData()
+    console.log(authors)
+  const sortedAuthors = sortAuthors(authors)
 
   return (
      <aside className="sideBar-element" aria-label="Top Writers">

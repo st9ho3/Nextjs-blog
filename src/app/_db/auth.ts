@@ -52,11 +52,10 @@ const createAuthorObject = (userid: string, name: string): Author => {
     return author
   }
 
-  export const registerUser = async (email: string, password: string, name: string): Promise<void> => {
+  export const registerUser = async (email: string, password: string, name: string): Promise<string> => {
     // Sign up the user with Firebase Auth and get a unique ID
     const id = await signUp(email, password);
     console.log("Firebase user ID:", id);
-  
     // Create the new author object
     const newUser = createAuthorObject(id, name);
     console.log("New Author Object:", newUser);
@@ -64,4 +63,5 @@ const createAuthorObject = (userid: string, name: string): Author => {
     // Save the user to Firestore
     await setDoc(doc(db, "authors", id), newUser);
     console.log("User registered with Firestore document ID:", id);
+    return id
   };

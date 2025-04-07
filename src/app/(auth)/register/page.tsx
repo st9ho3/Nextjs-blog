@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import {useRouter} from "next/navigation";
 import logoImage from "../../../../public/Logo.jpeg"
 
 
@@ -12,7 +13,7 @@ const RegisterForm = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
-
+  const router = useRouter();
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,12 +33,13 @@ const RegisterForm = () => {
         body: JSON.stringify({ name, password, email })
       });
       const data = await response.json();
-
+      
       if (!response.ok) {
         setErrorMsg(data.error || "Registration failed");
       } else {
         setSuccessMsg(data.message);
         // Optionally, redirect the user or reset form state
+        sessionStorage.setItem("userId", JSON.stringify(data.user));
       }
     } catch (error) {
       console.error("Error during registration:", error);
@@ -45,6 +47,9 @@ const RegisterForm = () => {
     }
   };
 
+  if (successMsg !== "") {
+    router.replace("/");
+  }
   return (
     <div className="auth-container">
       <div className="left-section">

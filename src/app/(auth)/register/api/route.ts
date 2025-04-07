@@ -11,10 +11,12 @@ console.log("hello")
     // You can add server-side validations here if needed
 
     // Call your Firebase logic to register the user
-    await registerUser(email, password, name);
-
+    const id = await registerUser(email, password, name);
+    
     return NextResponse.json(
-      { message: "User registered successfully" },
+      { message: "User registered successfully",
+        user: id
+      },
       { status: 200 }
     );
   } catch (error) {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import Button from './button';
 import Link from 'next/link';
 import './header.css';
@@ -8,11 +8,14 @@ import '../global.css';
 import { LuMenu } from 'react-icons/lu';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
+import { getAuthorsData } from './topWriters';
 
 
 const Header = () => {
-  const isWrite: string = usePathname();
 
+  const isWrite: string = usePathname();
+  
+  
   useEffect(() => {
     const header: HTMLElement | null = document.querySelector('.header');
     const handleScroll = () => {
@@ -22,6 +25,7 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
 
   return (
     <div>

@@ -22,17 +22,13 @@ export const saveToStorage = (jsonBlocks: Block[]) => {
   sessionStorage.setItem('editorContent', JSON.stringify(jsonBlocks));
 };
 
-const clearStorage = () => {
-  sessionStorage.removeItem('editorContent');
-};
-
-/* *
+/**
  * @description Clears the 'editorContent' item from session storage.
  * @function clearStorage
  */
-/* const clearStorage = () => {
+const clearStorage = () => {
   sessionStorage.removeItem('editorContent');
-}; */
+};
 
 
   export const getArticles = async (): Promise<Article[]> => {
