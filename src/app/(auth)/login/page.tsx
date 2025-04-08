@@ -7,7 +7,7 @@ import Image from 'next/image'
 import logoImage from "../../../../public/Logo.jpeg"
 
 
-const page = () => {
+const LoginForm = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -57,6 +57,7 @@ const page = () => {
               />
             </div>
             <div className="right-section">
+              {errorMsg && <h4>{errorMsg}</h4> }
               <form className="auth-form" onSubmit={handleSubmit} >
                 <h2>Sign In</h2>
                  <h4 style={{paddingBottom: '1rem', color: 'red' }}></h4>
@@ -105,4 +106,4 @@ const page = () => {
   )
 }
 
-export default page
+export default LoginForm

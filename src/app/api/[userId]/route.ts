@@ -1,12 +1,12 @@
-// app/api/users/[userId]/route.ts
+// src/app/api/[userId]/route.ts
 import { NextResponse } from "next/server";
 import { getAuthorById } from "@/app/_db/services";
 
 export async function GET(
-    request: Request,
-    { params }: { params: { user: string } }
+    request: Request
 ) {
-    const userId = params.user;
+    console.log("Fetching user data...");
+    const userId = new URL(request.url).pathname.slice(5)
     if (!userId) {
         return NextResponse.json({ message: "User ID required" }, { status: 400 });
     }

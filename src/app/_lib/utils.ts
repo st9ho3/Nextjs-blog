@@ -188,7 +188,7 @@ const clearStorage = () => {
     const newArticle = createArticleObject(/* author, */ content);
   
     // 4. Save to Firestore
-    const docRef = await setDoc(doc(db, "articles", newArticle.id), newArticle);
+    await setDoc(doc(db, "articles", newArticle.id), newArticle);
     console.log("Document written with ID: ", newArticle.id);
   
     // 5. Clear storage

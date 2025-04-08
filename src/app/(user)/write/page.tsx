@@ -9,7 +9,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 
 const Editor = dynamic(() => import("../../../editor/editor"), {ssr: false})
 
-const page = () => {
+const Writepage = () => {
 
   const [title, setTitle] = useState<string>("")
 
@@ -43,4 +43,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Writepage

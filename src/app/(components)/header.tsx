@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AuthButton from './authButton';
 import Button from './button';
 import Link from 'next/link';
@@ -74,7 +74,7 @@ const Header = () => {
 
           <LuMenu className="menu" />
 
-          {user ? <Image
+          {user ? !loading && <Image
             width={50}
             height={50}
             src={user?.profilePicture || '/man.png'}
