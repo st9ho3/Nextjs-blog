@@ -8,7 +8,6 @@ import '../global.css';
 import { LuMenu } from 'react-icons/lu';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { getAuthorsData } from './topWriters';
 
 
 const Header = () => {
