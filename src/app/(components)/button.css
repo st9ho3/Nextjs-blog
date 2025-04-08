@@ -15,8 +15,16 @@
   transition: 0.4s;
   min-width: 10.5rem;
 }
+.authButton {  
+  cursor: pointer;
+  transition: 0.4s;
+}
 
 .button:hover {
+  color: var(--button-text-color-hover);
+  border-color: var(--button-border-color-hover);
+}
+.authButton:hover {
   color: var(--button-text-color-hover);
   border-color: var(--button-border-color-hover);
 }

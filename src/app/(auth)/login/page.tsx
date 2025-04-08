@@ -46,7 +46,6 @@ const page = () => {
       router.replace("/");
     }
 
-  
   return (
     <div>
       <div className="auth-container">

@@ -1,13 +1,11 @@
 
 import { NextResponse } from "next/server";
-import { getAuthors } from "@/app/_lib/utils";
-
-
+import { getAllAuthors } from "@/app/_db/services";
 
 export const GET = async () => {
     try {
-        // Fetch the list of authors
-        const authors: Author[] = await getAuthors();
+        // Fetch all authors from Firestore
+        const authors = await getAllAuthors();
 
         // Return the authors as a JSON response
         return NextResponse.json(authors);
@@ -16,3 +14,15 @@ export const GET = async () => {
         console.error("Couldn't fetch data", error);
     }
 };
+/* export async function getAuthorsData(): Promise<Author[]> {
+    const res = await fetch('http://localhost:3000/api/authors', {
+      cache: 'force-cache',
+      next: {revalidate: 60}
+    });
+  
+    if (!res.ok) {
+      throw new Error('Failed to fetch data');
+    }
+  
+    return res.json();
+  } */

@@ -125,24 +125,7 @@ const clearStorage = () => {
     return firstContent.length > 0 ? firstContent[0].props.url : 'No image';
   };
 
-  /**
-   * @description Retrieves all authors from Firestore.
-   * @async
-   * @function getAuthors
-   * @returns {Promise<object[]>} A promise that resolves to an array of author data objects.
-   * @throws {Error} Throws an error if the document retrieval fails.
-   */
-  export const getAuthors = async (): Promise<Author[]> => {
-    const querySnapshot = await getDocs(collection(db, "authors"));
-    const authors: Author[] = [];
   
-    // Map through the documents and add them to the authors array
-    querySnapshot.forEach((doc) => {
-      authors.push(doc.data() as Author);
-    });
-  
-    return authors;
-  };
 
   type Output = [string, number]
 

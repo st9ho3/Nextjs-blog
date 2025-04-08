@@ -51,6 +51,7 @@ const RegisterForm = () => {
   if (successMsg !== "") {
     router.replace("/");
   }
+  
   return (
     <div className="auth-container">
       <div className="left-section">

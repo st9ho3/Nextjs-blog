@@ -18,6 +18,7 @@ async function getHomeData(): Promise<Article[]> {
   return res.json();
 }
 
+
 const page = async () => {
   const data = await getHomeData();
   return (

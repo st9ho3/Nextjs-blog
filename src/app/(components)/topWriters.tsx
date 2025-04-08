@@ -4,24 +4,11 @@ import { BsFeather } from 'react-icons/bs';
 import './topWriters.css'
 import { sortAuthors } from '../_lib/utils';
 import Image from 'next/image';
-
-export async function getAuthorsData(): Promise<Author[]> {
-  const res = await fetch('http://localhost:3000/api/authors', {
-    cache: 'force-cache',
-    next: {revalidate: 60}
-  });
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-
-  return res.json();
-}
+import { getAllAuthors } from '../_db/services';
 
 const TopWriters = async () => {
 
-  const authors = await getAuthorsData()
-    console.log(authors)
+  const authors = await getAllAuthors();
   const sortedAuthors = sortAuthors(authors)
 
   return (

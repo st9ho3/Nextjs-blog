@@ -1,6 +1,7 @@
 "use client";
 
 import React, { use, useEffect, useState } from 'react';
+import AuthButton from './authButton';
 import Button from './button';
 import Link from 'next/link';
 import './header.css';
@@ -12,8 +13,38 @@ import Image from 'next/image';
 
 const Header = () => {
 
+  const [user, setUser] = useState<Author | null>(null);
+  const [loading, setLoading] = useState(true);
+
   const isWrite: string = usePathname();
-  
+
+  useEffect(() => {
+    const storedId = sessionStorage.getItem("userId");
+    // userId in sessionStorage is often stored with quotes, remove them
+    const userId = storedId ? JSON.parse(storedId) : null;
+
+    if (userId) {
+        setLoading(true);
+        fetch(`http://localhost:3000/api/${userId}`) // Fetch specific user
+            .then(res => {
+                if (!res.ok) {
+                   throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                return res.json();
+             })
+            .then(data => {
+                setUser(data);
+                console.log("User data fetched:", data);
+            })
+            .catch(error => {
+                console.error("Failed to fetch user data:", error);
+                setUser(null); // Handle error state
+             })
+            .finally(() => setLoading(false));
+    } else {
+        setLoading(false); // No user ID found
+    }
+}, []); // Runs once on mount
   
   useEffect(() => {
     const header: HTMLElement | null = document.querySelector('.header');
@@ -43,13 +74,13 @@ const Header = () => {
 
           <LuMenu className="menu" />
 
-          <Image
+          {user ? <Image
             width={50}
             height={50}
-            src="/man.png"
+            src={user?.profilePicture || '/man.png'}
             className="profile-info-pic top"
             alt="profile-pic"
-          />
+          /> : <AuthButton text='Sign in'  />}
         </div>
       </div>
     </div>
