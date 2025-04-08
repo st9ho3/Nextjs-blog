@@ -1,15 +1,16 @@
 import { Block, PartialBlock } from "@blocknote/core";
-import {  doc, getDoc, getDocs, collection, setDoc } from "firebase/firestore";
+import {  doc, getDoc, getDocs, collection, setDoc, arrayUnion, updateDoc } from "firebase/firestore";
 import { db } from "../_db/Firebase";
 import { nanoid } from "nanoid";
+
 
 /**
  * @description Loads content from the session storage.
  * @function loadFromStorage
  * @returns {object|undefined} The parsed JSON object from session storage, or undefined if the key 'editorContent' is not found.
  */
-export const loadFromStorage = () => {
-  const storageString = sessionStorage.getItem('editorContent');
+export const loadFromStorage = (loadedContent: string) => {
+  const storageString = sessionStorage.getItem(loadedContent === 'editorContent' ? 'editorContent' : 'articleTitle');
   return storageString ? JSON.parse(storageString) : undefined;
 };
 
@@ -28,6 +29,7 @@ export const saveToStorage = (jsonBlocks: Block[]) => {
  */
 const clearStorage = () => {
   sessionStorage.removeItem('editorContent');
+  sessionStorage.removeItem('articleTitle');
 };
 
 
@@ -155,29 +157,31 @@ const clearStorage = () => {
     }
   }
 
-  const createArticleObject = (/* author: Author */ content: PartialBlock[]) => {
+  const createArticleObject = (author: Author, content: PartialBlock[]) => {
     const now = new Date();
     const newId = nanoid(); // Generate a unique ID for the article
   
     const article = {
-      id: newId, // Generate a unique ID for the article
+      id: newId, // Generate a unique ID for the article,
+      title: loadFromStorage('title'),
       metadata: {
         date: now.toLocaleDateString(), // Human-readable date
         time: now.toLocaleTimeString(), // Human-readable time
         updatetime: now.toISOString(), // ISO format for precise timestamps
       },
-      /* author: { id: author.id, name: author.name, img: author.profilePicture }, // Author's name */
+      author: { id: author.id, name: author.name, img: author.profilePicture }, // Author's name
       likes: 0, // Initial likes count
       comments: [], // Initially an empty array for comments
       shares: 0, // Initial shares count
       saves: 0, // Initial saves count
-      content: content, // Article content (blocks)
+      content: content, // Article content (blocks),
+      tags: ['politics', 'news'], // Example tags, replace with actual tags
     };
   
     return article;
   };
 
-  export const PublishArticle = async ( /* author: Author */) => {
+  export const PublishArticle = async ( author: Author) => {
     const JSONContent = sessionStorage.getItem('editorContent');
     const theContent = JSONContent ? JSON.parse(JSONContent) : undefined;
   
@@ -185,12 +189,14 @@ const clearStorage = () => {
     const content = JSON.parse(JSON.stringify(theContent));
   
     // 3. Create article with sanitized content
-    const newArticle = createArticleObject(/* author, */ content);
+    const newArticle = createArticleObject(author, content);
   
     // 4. Save to Firestore
     await setDoc(doc(db, "articles", newArticle.id), newArticle);
     console.log("Document written with ID: ", newArticle.id);
-  
+    await updateDoc(doc(db, "authors", author.id), {
+      articles: arrayUnion(newArticle.id)
+    });
     // 5. Clear storage
     clearStorage();
   };

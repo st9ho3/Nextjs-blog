@@ -8,7 +8,7 @@ import { getImage, getSubTitles, getTitles } from '../_lib/utils';
 import Image from 'next/image';
 
 const ArticlePreview = ({ article }: { article: Article }) => {
-  const title = getTitles(article);
+  const title = article.title
   const subtitle = getSubTitles(article);
   const image = getImage(article);
   

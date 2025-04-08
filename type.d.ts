@@ -42,6 +42,7 @@ interface Article {
   saves: number;
   shares: number;
   tags: string[];
+  title: string;
 }
 
 type FirestoreData = {

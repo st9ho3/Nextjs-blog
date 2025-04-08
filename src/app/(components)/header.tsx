@@ -13,7 +13,7 @@ import Image from 'next/image';
 
 const Header = () => {
 
-  const [user, setUser] = useState<Author | null>(null);
+  const [user, setUser] = useState<Author | undefined>(undefined);
   const [loading, setLoading] = useState(true);
 
   const isWrite: string = usePathname();
@@ -38,7 +38,7 @@ const Header = () => {
             })
             .catch(error => {
                 console.error("Failed to fetch user data:", error);
-                setUser(null); // Handle error state
+                setUser(undefined); // Handle error state
              })
             .finally(() => setLoading(false));
     } else {
@@ -67,10 +67,11 @@ const Header = () => {
         </Link>
 
         <div className="headerRight">
-          <Button
+           <Button
             param={isWrite}
             text={isWrite === '/write' ? 'Publish it' : 'Start Writting'}
-          />
+            author={user}  
+          /> 
 
           <LuMenu className="menu" />
 

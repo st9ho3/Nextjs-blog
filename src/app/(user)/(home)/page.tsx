@@ -21,6 +21,7 @@ async function getHomeData(): Promise<Article[]> {
 
 const page = async () => {
   const data = await getHomeData();
+  console.log("Fetched articles:", data);
   return (
     <div className="homepage">
       {<div className="home">

@@ -7,12 +7,25 @@ import { PublishArticle } from '../_lib/utils';
 type Props = {
   text: string;
   param: string;
+  author?: Author;
 };
 
-const Button = ({ text, param }: Props) => {
+const Button = ({ text, param, author }: Props) => {
+  const getRoute = (): string => {
+  if (author) {
+    if (param !== '/write') {
+      return '/write';
+    } else {
+      return '/';
+    }
+  } else {
+    return '/login';
+  }
+}
+const route = getRoute();
   return (
-    <div className="button" onClick={() => param === "/write" ? PublishArticle() : null}>
-      <Link href={param !== '/write' ? '/write' : '/'}>
+    <div className="button" onClick={() => param === "/write" ? author && PublishArticle(author) : null}>
+      <Link href={route}>
         <FaRegPenToSquare className="write-icon" />
         <span>{text}</span>
       </Link>

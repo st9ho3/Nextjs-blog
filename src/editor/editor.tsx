@@ -18,7 +18,7 @@ const Editor = () => {
  
   // Loads the previously stored editor contents.
   useEffect(() => {
-    const content = loadFromStorage()
+    const content = loadFromStorage('editorContent')
     setInitialContent(content)
   }, []);
  
