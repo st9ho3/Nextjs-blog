@@ -1,13 +1,21 @@
 import Header from "../(components)/header"
 import '@blocknote/core/fonts/inter.css';
 import '@blocknote/mantine/style.css';
-import { Inter } from 'next/font/google';
+import { Inter, Noto_Sans, Brygada_1918 } from "next/font/google"; // Import fonts
 import "../global.css";
 
 
-const inter = Inter({
-  weight: ['100', '500'], // Inter weights (100 to 900)
-  subsets: ['latin'], // Use the desired subset
+// Configure the fonts
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" }); // Example base font
+const notoSans = Noto_Sans({
+  subsets: ["latin"],
+  weight: ['400', '700'], // Include weights you might need
+  variable: "--font-noto-sans", // CSS variable for optional use
+});
+const brygada = Brygada_1918({
+  subsets: ["latin"],
+  weight: ['400', '700'], // Include weights you might need
+  variable: "--font-brygada", // CSS variable for optional use
 });
 
 export const metadata = {
@@ -23,7 +31,7 @@ export const metadata = {
 
     return (
       <html lang="en">
-        <body className={inter.className}>
+        <body className={`${inter.variable} ${notoSans.variable} ${brygada.variable} ${notoSans.className}`}>
           <Header />
           {children}
           </body>

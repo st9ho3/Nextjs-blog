@@ -1,0 +1,65 @@
+/* components/ContentRenderer.module.css */
+
+.contentWrapper {
+    /* Base styles for all screen sizes */
+    width: 100%;
+    /* Optional: Add max-width and centering if you want the *content block*
+       itself to be centered and have a max size, independent of padding */
+     /* max-width: 850px; */
+     /* margin-left: auto; */
+     /* margin-right: auto; */
+  }
+  
+  /* Apply padding on screens roughly tablet size and larger */
+  @media (min-width: 768px) { /* Adjust breakpoint as needed (e.g., 1024px for larger laptops) */
+    .contentWrapper {
+        border: solid 1px #ccc; /* Optional: Add a border for visual separation */
+      width: 85%;
+      /* If you have max-width set above, the padding will be *inside* that width */
+    }
+  }
+  
+  /* --- Font and Color Styling --- */
+  
+  /* Apply specific font family to paragraphs within the renderer */
+  .contentWrapper p {
+    /* Use Brygada 1918 first, fallback to Noto Sans, then generic sans-serif */
+    font-family: 'Brygada 1918' ,'Noto Sans', sans-serif;
+    line-height: 1.6; /* Improves readability */
+  }
+  
+  /* Apply grey color to specific headings */
+  .contentWrapper h1,
+  .contentWrapper h2,
+  .contentWrapper h3 {
+    color: #605f5f; /* A pleasant medium-dark grey - adjust hex code as desired */
+  }
+  
+  /* --- Optional: Maintain Basic List Styling --- */
+  /* Add some default list margin if needed (inline styles in ContentRenderer also handle this) */
+  /* .contentWrapper ul,
+  .contentWrapper ol {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    padding-left: 2em;
+  } */
+  
+  /* --- Optional: Basic Code Block Font --- */
+  /* Ensure code blocks use a monospace font */
+  /* .contentWrapper pre code {
+    font-family: monospace;
+  } */
+  
+  /* --- Optional: Basic Table Borders --- */
+  /* .contentWrapper table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+  }
+  
+  .contentWrapper th,
+  .contentWrapper td {
+    border: 1px solid #ccc;
+    padding: 0.5em;
+    text-align: left;
+  } */
