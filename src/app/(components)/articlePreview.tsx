@@ -39,7 +39,7 @@ const ArticlePreview = ({ article }: { article: Article }) => {
 
         {/* Article link */}
         <Link
-          href={`${article.author?.name || 'Unknown'}/${article.id}`}
+          href={`/${article.author.name}/${article.id}`}
           className="article-link"
         >
           <h1 className="title">{title}</h1>
@@ -66,7 +66,7 @@ const ArticlePreview = ({ article }: { article: Article }) => {
       </div>
       {/* Article image link */}
       { image !== "No image" && <Link
-        href={`${article.author?.name || 'Unknown'}/${article.id}`}
+        href={`/${article.author.name}/${article.id}`}
         className="image-link"
       >
        <Image className="article-image" width={150} height={150} src={image} alt="article image" /> 

@@ -46,3 +46,24 @@ export const getAuthorById = cache(async (userId: string): Promise<Author | null
         return null;
     }
 });
+// Function to get a SINGLE article by ID
+export const getArticleById = cache(async (articleId: string): Promise<Article | null> => {
+    console.log(`Workspaceing article ${articleId} from Firestore...`);
+    if (!articleId) return null; // Handle cases where ID might be missing
+
+    try {
+        const docRef = doc(db, "articles", articleId); // Or your actual collection name for users/authors
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            return { id: docSnap.id, ...docSnap.data() } as Article;
+        } else {
+            console.log(`No article found with ID: ${articleId}`);
+            return null;
+        }
+    } catch (error) {
+        console.error(`Couldn't fetch article ${articleId}`, error);
+        // throw new Error("Failed to fetch author data");
+        return null;
+    }
+});

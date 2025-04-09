@@ -23,10 +23,8 @@ const Writepage = () => {
   
   // Save the title to session storage
   useEffect(() => {
-    if (title) {
       sessionStorage.setItem('articleTitle', JSON.stringify(title));
-    }
-  },[title])
+    },[title])
 
   return (
     <main className="main">
