@@ -8,7 +8,6 @@ import { cache } from 'react'; // Use React cache or Next.js unstable_cache for 
 // and potentially leverage Next.js caching mechanisms more effectively
 // depending on where it's called. For longer caching, combine with route segment config or unstable_cache.
 export const getAllAuthors = cache(async (): Promise<Author[]> => {
-    console.log("Fetching ALL authors from Firestore...");
     try {
         const querySnapshot = await getDocs(collection(db, "authors"));
         const authors: Author[] = [];
@@ -48,7 +47,6 @@ export const getAuthorById = cache(async (userId: string): Promise<Author | null
 });
 // Function to get a SINGLE article by ID
 export const getArticleById = cache(async (articleId: string): Promise<Article | null> => {
-    console.log(`Workspaceing article ${articleId} from Firestore...`);
     if (!articleId) return null; // Handle cases where ID might be missing
 
     try {

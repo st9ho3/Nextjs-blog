@@ -72,7 +72,7 @@ const createAuthorObject = (userid: string, name: string): Author => {
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
-        console.log('User signed in:', user);
+        
         // You can also fetch user data from Firestore here if needed
         return user.uid
       })

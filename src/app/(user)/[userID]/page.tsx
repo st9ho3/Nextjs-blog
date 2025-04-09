@@ -18,7 +18,7 @@ const ProfilePage = async ({ params }: { params: { userID: string } }) => {
   return (
     <div>
       {/* Replace with actual user data */}
-      <h1>User Profile: {userID}</h1>
+      <p>User Profile: {userID}</p>
       {/* Display user details */}
       {/* Display list of user's articles, linking to /userId/articleId */}
       {/* Example:

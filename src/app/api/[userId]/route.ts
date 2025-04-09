@@ -6,6 +6,7 @@ export async function GET(
     request: Request
 ) {
     console.log("Fetching user data...");
+    console.log(request.url);
     const userId = new URL(request.url).pathname.slice(5)
     if (!userId) {
         return NextResponse.json({ message: "User ID required" }, { status: 400 });

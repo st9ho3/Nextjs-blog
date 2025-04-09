@@ -123,7 +123,7 @@ const clearStorage = () => {
     const firstContent = article.content.filter(
       (content) => content.type === 'image'
     );
-    console.log(firstContent);
+    
     return firstContent.length > 0 ? firstContent[0].props.url : 'No image';
   };
 
@@ -139,7 +139,6 @@ const clearStorage = () => {
         tags.push(tag)
        })
     })
-    console.log(tags)
     const tagsCount = tags.reduce((accumulator: Record<string, number>, currentValue: string) => {
       accumulator[currentValue] = (accumulator[currentValue] || 0) + 1;
       return accumulator;
