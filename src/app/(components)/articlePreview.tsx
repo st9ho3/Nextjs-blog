@@ -4,7 +4,7 @@ import { FaHandsClapping, FaRegBookmark } from 'react-icons/fa6';
 import { FaComment } from 'react-icons/fa';
 import Tag from './tag';
 import './articlePreview.css';
-import { getImage, getSubTitles, getTitles } from '../_lib/utils';
+import { getImage, getSubTitles } from '../_lib/utils';
 import Image from 'next/image';
 
 const ArticlePreview = ({ article }: { article: Article }) => {

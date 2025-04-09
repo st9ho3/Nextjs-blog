@@ -1,36 +1,37 @@
-// app/(user)/[userId]/[articleID]/page.tsx
+// app/(user)/[userID]/[articleID]/page.tsx
 import React from "react";
 import { getArticleById } from "@/app/_db/services"; // Adjust import path if needed
-import { notFound } from 'next/navigation'; // Import notFound
-import { ServerBlockNoteEditor } from '@blocknote/server-util'; // <-- Import server editor
-import { PartialBlock } from "@blocknote/core"; // <-- Import Block type if needed
-import ContentRenderer from "../../test/ContentRenderer";
+import { notFound } from 'next/navigation';
+import ContentRenderer from "@/app/(components)/htmlRenderer/ContentRenderer";
 
-
-// No need for the API fetch function here anymore
-
-const ArticlePage = async ({ params }: { params: { userId: string, articleID: string } }) => {
-  // Destructure articleID directly from params
-  const { articleID } = await params; 
-
-  // Fetch the article DIRECTLY using the database service
-  const article: Article | null = await getArticleById(articleID);
-
+// Next.js page component with correct typing for App Router
+export default async function ArticlePage(
+  {params}: {
+  params: Promise<{
+    userID: string;
+    articleID: string;
+  }>
+}) {
+  // Destructure articleID from params
+  const { articleID } = await params;
+  
+  // Fetch the article using the database service
+  const article = await getArticleById(articleID);
+  
   if (!article) {
     notFound(); // Use Next.js 404 helper if article doesn't exist
   }
-
-  // --- Server-side HTML Generation ---
-  let htmlContent = article.content || null; // Fallback to null if content is empty
   
-
+  // Ensure content is a string or fall back to empty string
+  const htmlContent = article.content || "";
+  
   return (
     <main style={{ padding: '2rem', maxWidth: '800px', margin: 'auto' }}>
-    <h1>Rendered Content</h1>
-    <hr />
-    <ContentRenderer content={htmlContent} />
-  </main>
+      {/* Optionally display the article title */}
+      {article.title && <h1>{article.title}</h1>}
+      <hr />
+      {/* Render the fetched content */}
+      <ContentRenderer content={htmlContent} />
+    </main>
   );
-};
-
-export default ArticlePage;
+}

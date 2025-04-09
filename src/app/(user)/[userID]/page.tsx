@@ -1,9 +1,7 @@
 // app/(user)/[userID]/page.tsx
 import React from 'react';
-// Import functions to get user data and user's articles if needed
-// import { getUserData, getArticlesByUserId } from '@/app/_db/services';
 
-const ProfilePage = async ({ params }: { params: { userID: string } }) => {
+const ProfilePage = async ({ params }: { params: Promise<{ userID: string }>}) => {
   const { userID } = await params; // No await needed for params
 
   // Fetch user data based on userId (you'll need a service function for this)
