@@ -3,24 +3,11 @@ import React from 'react';
 import './home.css';
 import '../../(components)/header.css';
 import Sidebar from '@/app/(components)/sidebar';
-
-async function getHomeData(): Promise<Article[]> {
-  const res = await fetch('http://localhost:3000/api/articles', {
-    cache: 'force-cache',
-    next: {revalidate: 60}
-  });
-
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-
-  return res.json();
-}
+import { getArticles } from '@/app/_lib/utils';
 
 
 const page = async () => {
-  const data = await getHomeData();
+  const data = await getArticles();
   return (
     <div className="homepage">
       {<div className="home">
