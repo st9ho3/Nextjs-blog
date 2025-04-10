@@ -1,65 +1,104 @@
 /* components/ContentRenderer.module.css */
 
+/* --- Wrapper for Padding/Width --- */
 .contentWrapper {
-    /* Base styles for all screen sizes */
     width: 100%;
-    /* Optional: Add max-width and centering if you want the *content block*
-       itself to be centered and have a max size, independent of padding */
-     /* max-width: 850px; */
-     /* margin-left: auto; */
-     /* margin-right: auto; */
+    /* Inherits base font (Inter) from layout.tsx body */
   }
   
-  /* Apply padding on screens roughly tablet size and larger */
-  @media (min-width: 768px) { /* Adjust breakpoint as needed (e.g., 1024px for larger laptops) */
+  /* Responsive Padding for the main content area */
+  @media (min-width: 768px) {
     .contentWrapper {
-        border: solid 1px #ccc; /* Optional: Add a border for visual separation */
+      padding-left: 1rem;
+      padding-right: 1rem;
       width: 85%;
-      /* If you have max-width set above, the padding will be *inside* that width */
     }
   }
   
-  /* --- Font and Color Styling --- */
+  /* --- Element-Specific Styles --- */
   
-  /* Apply specific font family to paragraphs within the renderer */
-  .contentWrapper p {
-    /* Use Brygada 1918 first, fallback to Noto Sans, then generic sans-serif */
-    font-family: 'Brygada 1918' ,'Noto Sans', sans-serif;
-    line-height: 1.6; /* Improves readability */
+  .paragraph {
+    font-family: var(--font-noto-serif-display), serif;
+    line-height: 1.5;
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
   }
   
-  /* Apply grey color to specific headings */
-  .contentWrapper h1,
-  .contentWrapper h2,
-  .contentWrapper h3 {
-    color: #605f5f; /* A pleasant medium-dark grey - adjust hex code as desired */
+  .heading1,
+  .heading2,
+  .heading3,
+  .heading4,
+  .heading5,
+  .heading6 {
+    /* font-family: var(--font-inter), sans-serif; */ /* Inherited */
+    color: #4a4a4a;
+    margin-top: 1.2em;
+    margin-bottom: 0.7em;
+    line-height: 1.3;
+  }
+  /* Optional: Add specific margin/size overrides per heading level if needed */
+  /* .heading1 { font-size: 2em; } */
+  /* .heading2 { font-size: 1.5em; } */
+  
+  .orderedList,
+  .unorderedList {
+    font-family: var(--font-noto-serif-display), serif;
+    line-height: 1.5;
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
+    /* Adjust padding/margin based on nesting in ContentRenderer.tsx */
+    /* Example base padding */
+     padding-left: 2em;
   }
   
-  /* --- Optional: Maintain Basic List Styling --- */
-  /* Add some default list margin if needed (inline styles in ContentRenderer also handle this) */
-  /* .contentWrapper ul,
-  .contentWrapper ol {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-    padding-left: 2em;
-  } */
+  /* Style for individual list items if needed (e.g., margin) */
+  .listItem {
+     margin-bottom: 0.4em;
+      /* Font is inherited from parent ol/ul */
+  }
   
-  /* --- Optional: Basic Code Block Font --- */
-  /* Ensure code blocks use a monospace font */
-  /* .contentWrapper pre code {
-    font-family: monospace;
-  } */
+  /* Style for checklist items specifically if needed beyond basic li */
+  .checkListItem {
+      list-style: none; /* Remove default bullet */
+      margin-left: -1.5em; /* Adjust to align checkbox */
+      margin-bottom: 0.4em;
+  }
+  .checkListItem span { /* The [x] or [ ] part */
+      margin-right: 0.5em;
+      display: inline-block; /* Prevents weird wrapping */
+  }
   
-  /* --- Optional: Basic Table Borders --- */
-  /* .contentWrapper table {
+  
+  .codeBlock {
+      background-color: #f5f5f5;
+      padding: 1em;
+      overflow-x: auto;
+      font-family: monospace; /* Explicit monospace for code */
+      display: block;
+      white-space: pre;
+      margin-top: 1em;
+      margin-bottom: 1em;
+      line-height: 1.4;
+  }
+  
+  /* --- Table Styling --- */
+  .tableWrapper {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    overflow-x: auto;
+  }
+  
+  .tableWrapper table {
     border-collapse: collapse;
     width: 100%;
-    margin: 1em 0;
   }
   
-  .contentWrapper th,
-  .contentWrapper td {
-    border: 1px solid #ccc;
-    padding: 0.5em;
+  .tableCell { /* Apply to generated <td> elements */
+    border: 1px solid #d1d1d1;
+    padding: 0.6em 0.8em;
     text-align: left;
-  } */
+    vertical-align: top;
+  }
+  /* You might need a .tableHeaderCell class if your schema supports <th> */

@@ -1,28 +1,23 @@
 // components/BlockRenderer.tsx
-import React from 'react';
-import { Block, BlockProps, HeadingBlock, ListItemBlock, CheckListItemBlock, CodeBlock, TableBlock, InlineContent, TableContentData } from './content'; // Adjust path
+import React, { JSX } from 'react';
+import { Block, BlockProps, HeadingBlock, ListItemBlock, CheckListItemBlock, CodeBlock, TableBlock, InlineContent, TableContentData } from './content';
 import InlineContentRenderer from './InlineContentRenderer';
 import TableRenderer from './TableRenderer';
-import ContentRenderer from './ContentRenderer'; // Import ContentRenderer for nesting
+import ContentRenderer from './ContentRenderer';
+import styles from './ContentRenderer.module.css'; // Import the CSS module
 
-// Helper to map block props to styles
+// Keep this function: It applies specific overrides from JSON props
 const mapBlockStyles = (props?: BlockProps): React.CSSProperties => {
     const styles: React.CSSProperties = {};
     if (!props) return styles;
-
-    if (props.textAlignment) {
-        styles.textAlign = props.textAlignment;
-    }
+    if (props.textAlignment) styles.textAlign = props.textAlignment;
     if (props.backgroundColor && props.backgroundColor !== 'default') {
         styles.backgroundColor = props.backgroundColor;
-        styles.padding = '0.2em 0.4em'; // Add padding if background color exists
+        // Add padding only if background is set, maybe? Or rely on CSS module padding.
+        // Consider if inline padding should override module padding.
+        // styles.padding = '0.2em 0.4em';
     }
-    if (props.textColor && props.textColor !== 'default') {
-        styles.color = props.textColor;
-    }
-     // Add default margin for block elements
-    styles.margin = '0.5em 0';
-
+    if (props.textColor && props.textColor !== 'default') styles.color = props.textColor;
     return styles;
 }
 
@@ -31,26 +26,28 @@ interface BlockRendererProps {
 }
 
 const BlockRenderer: React.FC<BlockRendererProps> = ({ block }) => {
-  const blockStyle = mapBlockStyles(block.props);
+  const inlineBlockStyle = mapBlockStyles(block.props); // Styles from JSON props
   const children = block.children && block.children.length > 0 ? block.children : null;
 
-  // Helper to render children recursively
   const renderChildren = () => children ? <ContentRenderer content={children} isNested={true}/> : null;
 
   switch (block.type) {
     case 'heading':
       const headingBlock = block as HeadingBlock;
-      const Tag = `h${headingBlock.props.level || 1}` as React.ElementType;
+      const level = headingBlock.props.level || 1;
+      const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+      // Dynamically select heading class based on level
+      const headingClass = styles[`heading${level}` as keyof typeof styles] || styles.heading6; // Fallback
       return (
-        <Tag style={blockStyle}>
-          <InlineContentRenderer content={headingBlock.content} />
-          {renderChildren()} {/* Headings generally shouldn't have block children, but handle defensively */}
+        <Tag className={headingClass} style={inlineBlockStyle}>
+          <InlineContentRenderer content={headingBlock.content as InlineContent[]} />
+          {renderChildren()}
         </Tag>
       );
 
     case 'paragraph':
       return (
-        <p style={blockStyle}>
+        <p className={styles.paragraph} style={inlineBlockStyle}>
           <InlineContentRenderer content={block.content as InlineContent[]} />
           {renderChildren()}
         </p>
@@ -58,69 +55,58 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ block }) => {
 
     case 'numberedListItem':
     case 'bulletListItem':
-    case 'checkListItem': // Render structure is <li>, specific content handled below
-      const listItemBlock = block as ListItemBlock | CheckListItemBlock;
-      const isCheckList = listItemBlock.type === 'checkListItem';
-      const isChecked = isCheckList ? (listItemBlock as CheckListItemBlock).props.checked : false;
-
-      // Basic checklist styling (can be improved with CSS)
-      const checkListStyle: React.CSSProperties = isCheckList ? { listStyle: 'none', marginLeft: '-1em'} : {}; // Remove default bullet
-      const combinedStyle = {...blockStyle, ...checkListStyle};
-
+      const listItemBlock = block as ListItemBlock;
       return (
-        <li style={combinedStyle}>
-          {isCheckList && (
-            <span style={{ marginRight: '0.5em' }}>
-              {/* Basic text representation, could use <input type="checkbox" disabled checked={isChecked} /> */}
-              {isChecked ? '[x]' : '[ ]'}
-            </span>
-          )}
-          <InlineContentRenderer content={listItemBlock.content} />
-          {/* Render nested children (which will likely be another list) */}
+        <li className={styles.listItem} style={inlineBlockStyle}>
+          <InlineContentRenderer content={listItemBlock.content as InlineContent[]} />
           {renderChildren()}
         </li>
       );
 
+    case 'checkListItem':
+        const checkListItemBlock = block as CheckListItemBlock;
+        const isChecked = checkListItemBlock.props.checked;
+        return (
+            <li className={styles.checkListItem} style={inlineBlockStyle}>
+             {/* Checkbox indicator - styling handled by .checkListItem span */}
+            <span>
+                {isChecked ? '[x]' : '[ ]'}
+            </span>
+            <InlineContentRenderer content={checkListItemBlock.content as InlineContent[]} />
+            {renderChildren()}
+            </li>
+        );
+
+
     case 'codeBlock':
       const codeBlock = block as CodeBlock;
-      // Basic code block styling
-      const codeStyle: React.CSSProperties = {
-        backgroundColor: '#f5f5f5',
-        padding: '1em',
-        overflowX: 'auto', // Allow horizontal scrolling
-        fontFamily: 'monospace',
-        display: 'block', // Make <pre> behave like a block
-        whiteSpace: 'pre', // Preserve whitespace and line breaks
-        ...blockStyle, // Apply alignment etc. if needed, though usually left-aligned
-      };
       const langClass = codeBlock.props.language ? `language-${codeBlock.props.language}` : '';
+      // Apply base style via class, specific overrides (like alignment?) via inline style
       return (
-        <pre style={codeStyle}>
+        <pre className={styles.codeBlock} style={inlineBlockStyle}>
           <code className={langClass}>
-            {/* Assuming code content is a single text node */}
             {(codeBlock.content as InlineContent[])?.map(c => c.type === 'text' ? c.text : '').join('')}
           </code>
-          {/* Code blocks generally don't have children */}
         </pre>
       );
 
     case 'table':
       const tableBlock = block as TableBlock;
-      // Apply block-level text color/bg as defaults, cell props override
-      const tableContainerStyle = mapBlockStyles(tableBlock.props);
+      // Apply tableWrapper class and potential overrides to the container
       return (
-        <div style={tableContainerStyle}> {/* Wrapper for potential block styles */}
+        <div className={styles.tableWrapper} style={inlineBlockStyle}>
             <TableRenderer content={tableBlock.content as TableContentData} />
-            {/* Tables generally don't have children */}
         </div>
       );
 
     default:
       console.warn(`Unsupported block type: ${block.type}`, block);
-      // Render basic div with content as fallback
+      // Basic fallback, maybe apply paragraph style?
       return (
-        <div style={blockStyle}>
-          <InlineContentRenderer content={block.content as InlineContent[]} />
+        <div className={styles.paragraph} style={inlineBlockStyle}>
+          {block.content && Array.isArray(block.content)
+            ? <InlineContentRenderer content={block.content as InlineContent[]} />
+            : /* Handle potential non-array content types if necessary */ null }
           {renderChildren()}
         </div>
       );

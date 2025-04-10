@@ -1,12 +1,14 @@
 // components/TableRenderer.tsx
 import React from 'react';
-import { TableContentData, TableRow as TableRowType } from './content'; // Adjust path
+import { TableContentData, TableRow as TableRowType } from './content';
 import InlineContentRenderer from './InlineContentRenderer';
+import styles from './ContentRenderer.module.css'; // Import styles for .tableCell
 
 interface TableRendererProps {
   content: TableContentData;
 }
 
+// Styles specific to CELL properties from JSON (overrides)
 const mapCellStyles = (props: TableRowType['cells'][0]['props']): React.CSSProperties => {
     const styles: React.CSSProperties = {};
     if (props.backgroundColor && props.backgroundColor !== 'default') {
@@ -18,9 +20,7 @@ const mapCellStyles = (props: TableRowType['cells'][0]['props']): React.CSSPrope
     if (props.textAlignment) {
         styles.textAlign = props.textAlignment;
     }
-    // Add padding for better spacing
-    styles.padding = '0.5em';
-    styles.border = '1px solid #ccc'; // Basic border for visibility
+    // Padding/border are now handled by CSS module's .tableCell
     return styles;
 }
 
@@ -29,34 +29,29 @@ const TableRenderer: React.FC<TableRendererProps> = ({ content }) => {
     return null;
   }
 
-  // Basic table styling
-  const tableStyle: React.CSSProperties = {
-      borderCollapse: 'collapse',
-      width: '100%', // Make table take available width
-      margin: '1em 0', // Add some margin
-  };
-
-  // Note: columnWidths are provided but applying them directly to <table> or <tbody>
-  // isn't standard. Usually applied to <col> elements or individual <td>s.
-  // For simplicity here, we are not applying explicit widths based on columnWidths.
-  // You might need <colgroup> and <col> for precise control.
-
   return (
-    <table style={tableStyle}>
+    // Table tag itself might not need a class if styled via .tableWrapper table
+    <table>
       <tbody>
         {content.rows.map((row, rowIndex) => (
           <tr key={`row-${rowIndex}`}>
             {row.cells.map((cell, cellIndex) => {
-              if (!cell || !cell.props) return null; // Skip potentially malformed cells
+              if (!cell || !cell.props) return null;
               const cellProps = cell.props;
+              const inlineCellStyle = mapCellStyles(cellProps); // Get overrides
+
               return (
                 <td
                   key={`cell-${rowIndex}-${cellIndex}`}
+                  className={styles.tableCell} // Apply the specific class
                   colSpan={cellProps.colspan > 1 ? cellProps.colspan : undefined}
                   rowSpan={cellProps.rowspan > 1 ? cellProps.rowspan : undefined}
-                  style={mapCellStyles(cellProps)}
+                  style={inlineCellStyle} // Apply JSON overrides
                 >
-                  <InlineContentRenderer content={cell.content} />
+                  {cell.content && cell.content.length > 0
+                    ? <InlineContentRenderer content={cell.content} />
+                    : <> </>
+                  }
                 </td>
               );
             })}

@@ -10,12 +10,10 @@ interface ContentRendererProps {
 }
 
 const ContentRenderer: React.FC<ContentRendererProps> = ({ content, isNested = false }) => {
-  if (!content || content.length === 0) {
-    return null;
-  }
+  if (!content || content.length === 0) return null;
 
   const renderedBlocks = [];
-  let currentList: { type: 'ol' | 'ul', items: Block[] } | null = null;
+  let currentList: { type: 'ol' | 'ul', items: Block[], listClass: string } | null = null;
 
   for (let i = 0; i < content.length; i++) {
     const block = content[i];
@@ -26,28 +24,33 @@ const ContentRenderer: React.FC<ContentRendererProps> = ({ content, isNested = f
 
     if (isAnyList) {
         const listType = isNumberedList ? 'ol' : 'ul';
+        // Get the appropriate CSS Module class for the list type
+        const listClass = listType === 'ol' ? styles.orderedList : styles.unorderedList;
 
         if (currentList && currentList.type === listType) {
             currentList.items.push(block);
         } else {
             if (currentList) {
                 const ListTag = currentList.type;
-                // Keep inline style for nested list margin adjustment or move to CSS
-                const listStyle: React.CSSProperties = isNested ? { margin: '0.5em 0 0.5em 1.5em' } : { margin: '1em 0 1em 2em' };
+                // Apply the class from the finished list
+                 const listStyle: React.CSSProperties = isNested ? { marginLeft: '1.5em', marginTop: '0.5em', marginBottom: '0.5em' } : { }; // Adjust nested margin only if needed
+
                 renderedBlocks.push(
-                    <ListTag key={`list-${i - currentList.items.length}`} style={listStyle}>
+                    <ListTag key={`list-${i - currentList.items.length}`} className={currentList.listClass} style={listStyle}>
                     {currentList.items.map(item => <BlockRenderer key={item.id} block={item} />)}
                     </ListTag>
                 );
             }
-            currentList = { type: listType, items: [block] };
+            // Start new list with its class
+            currentList = { type: listType, items: [block], listClass: listClass };
         }
     } else {
         if (currentList) {
             const ListTag = currentList.type;
-            const listStyle: React.CSSProperties = isNested ? { margin: '0.5em 0 0.5em 1.5em' } : { margin: '1em 0 1em 2em' };
+            const listStyle: React.CSSProperties = isNested ? { marginLeft: '1.5em', marginTop: '0.5em', marginBottom: '0.5em' } : { };
+
             renderedBlocks.push(
-                <ListTag key={`list-${i - currentList.items.length}`} style={listStyle}>
+                <ListTag key={`list-${i - currentList.items.length}`} className={currentList.listClass} style={listStyle}>
                 {currentList.items.map(item => <BlockRenderer key={item.id} block={item} />)}
                 </ListTag>
             );
@@ -59,20 +62,20 @@ const ContentRenderer: React.FC<ContentRendererProps> = ({ content, isNested = f
 
   if (currentList) {
     const ListTag = currentList.type;
-     const listStyle: React.CSSProperties = isNested ? { margin: '0.5em 0 0.5em 1.5em' } : { margin: '1em 0 1em 2em' };
+     const listStyle: React.CSSProperties = isNested ? { marginLeft: '1.5em', marginTop: '0.5em', marginBottom: '0.5em' } : { }; // Adjust nested margin if needed
+
     renderedBlocks.push(
-      <ListTag key={`list-end`} style={listStyle}>
+      <ListTag key={`list-end`} className={currentList.listClass} style={listStyle}>
         {currentList.items.map(item => <BlockRenderer key={item.id} block={item} />)}
       </ListTag>
     );
   }
 
-  // Apply the wrapper class only if it's NOT nested content
-  // Nested content (like lists within lists) shouldn't get the main padding/styles
+  // Apply the wrapper class for padding etc. only if not nested
   return isNested ? (
     <>{renderedBlocks}</>
   ) : (
-    <div className={styles.contentWrapper}>{renderedBlocks}</div> // Apply the class here
+    <div className={styles.contentWrapper}>{renderedBlocks}</div>
   );
 };
 
