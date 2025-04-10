@@ -25,7 +25,7 @@ const Header = () => {
 
     if (userId) {
         setLoading(true);
-        fetch(`http://localhost:3000/api/${userId}`) // Fetch specific user
+        fetch(`/api/${userId}`) // Fetch specific user
             .then(res => {
                 if (!res.ok) {
                    throw new Error(`HTTP error! status: ${res.status}`);
