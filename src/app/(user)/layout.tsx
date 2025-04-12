@@ -1,7 +1,7 @@
 // app/layout.tsx
 import type { Metadata } from "next";
 // Import the necessary fonts
-import { Brygada_1918, Inter, Noto_Serif_Display } from "next/font/google";
+import { Brygada_1918, Inter} from "next/font/google";
 import "../global.css";
 import "@blocknote/mantine/style.css"
 import Header from "../(components)/header";

@@ -1,6 +1,5 @@
 // app/api/convert/[articleID]/route.ts
 import { NextResponse } from 'next/server';
-import { ServerBlockNoteEditor } from '@blocknote/server-util';
 import { getArticleById } from '@/app/_db/services';
 
 export async function GET(
