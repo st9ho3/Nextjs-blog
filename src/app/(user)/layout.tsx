@@ -15,8 +15,8 @@ const inter = Inter({
 
 // Configure Noto Serif Display (for lists, paragraphs)
 const notoSerifDisplay = Brygada_1918({
-  subsets: ["latin"],
-  weight: ['400', '700'], // Include needed weights
+  subsets: ["latin", 'greek'],
+  weight: [ '400', '700'], // Include needed weights
   display: 'swap',
   variable: "--font-noto-serif-display", // CSS variable
 });
