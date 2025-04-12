@@ -1,7 +1,7 @@
 // app/layout.tsx
 import type { Metadata } from "next";
 // Import the necessary fonts
-import { Inter, Noto_Serif_Display } from "next/font/google";
+import { Brygada_1918, Inter, Noto_Serif_Display } from "next/font/google";
 import "../global.css";
 import "@blocknote/mantine/style.css"
 import Header from "../(components)/header";
@@ -14,7 +14,7 @@ const inter = Inter({
 });
 
 // Configure Noto Serif Display (for lists, paragraphs)
-const notoSerifDisplay = Noto_Serif_Display({
+const notoSerifDisplay = Brygada_1918({
   subsets: ["latin"],
   weight: ['400', '700'], // Include needed weights
   display: 'swap',

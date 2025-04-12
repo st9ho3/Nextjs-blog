@@ -46,7 +46,7 @@ const Header = () => {
     }
 }, []); // Runs once on mount
   
-  useEffect(() => {
+  /* useEffect(() => {
     const header: HTMLElement | null = document.querySelector('.header');
     const handleScroll = () => {
       header?.classList.toggle('fixed', window.scrollY > 0);
@@ -54,7 +54,7 @@ const Header = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, []); */
 
 
   return (
