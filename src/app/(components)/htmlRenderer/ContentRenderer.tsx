@@ -62,7 +62,7 @@ const ContentRenderer: React.FC<ContentRendererProps> = ({ content, isNested = f
 
   if (currentList) {
     const ListTag = currentList.type;
-     const listStyle: React.CSSProperties = isNested ? { marginLeft: '1.5em', marginTop: '0.5em', marginBottom: '0.5em' } : { }; // Adjust nested margin if needed
+     const listStyle: React.CSSProperties = isNested ? { marginLeft: '.4em', marginTop: '0.5em', marginBottom: '0.5em' } : { }; // Adjust nested margin if needed
 
     renderedBlocks.push(
       <ListTag key={`list-end`} className={currentList.listClass} style={listStyle}>

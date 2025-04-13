@@ -52,7 +52,7 @@
   font-size: 1.1em;
   /* Adjust padding/margin based on nesting in ContentRenderer.tsx */
   /* Example base padding */
-   padding-left: 1em;
+   padding-left: 1rem;
    color: rgb(56, 56, 56); /* Added for mostly black-grey color */
 
 }
