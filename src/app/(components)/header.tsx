@@ -9,13 +9,14 @@ import '../global.css';
 import { LuMenu } from 'react-icons/lu';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
+import Modal from './Modal/modal';
 
 
 const Header = () => {
 
   const [user, setUser] = useState<Author | undefined>(undefined);
   const [loading, setLoading] = useState(true);
-
+  const [profileModalOpen, setProfileModalOpen] = useState<Boolean>(false);
   const isWrite: string = usePathname();
 
   useEffect(() => {
@@ -67,6 +68,11 @@ const Header = () => {
         </Link>
 
         <div className="headerRight">
+        {profileModalOpen && <Modal
+            isOpen={profileModalOpen} 
+            user={user} 
+            type='profile' 
+            /> }
            <Button
             param={isWrite}
             text={isWrite === '/write' ? 'Publish it' : 'Start Writting'}
@@ -74,13 +80,13 @@ const Header = () => {
           /> 
 
           <LuMenu className="menu" />
-
           {user ? !loading && <Image
             width={50}
             height={50}
             src={user?.profilePicture || '/man.png'}
             className="profile-info-pic top"
             alt="profile-pic"
+            onClick={() => setProfileModalOpen(!profileModalOpen)}
           /> : <AuthButton text='Sign in'  />}
         </div>
       </div>

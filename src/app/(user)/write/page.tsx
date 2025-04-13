@@ -5,6 +5,7 @@ import { useState } from 'react'
 import './mystyles.css'
 import dynamic from 'next/dynamic';
 import TextareaAutosize from 'react-textarea-autosize';
+import Modal from '@/app/(components)/Modal/modal';
 
 
 const Editor = dynamic(() => import("../../../editor/editor"), {ssr: false})
@@ -12,6 +13,7 @@ const Editor = dynamic(() => import("../../../editor/editor"), {ssr: false})
 const Writepage = () => {
 
   const [title, setTitle] = useState<string>("")
+  const [tagsModalOpen, setTagsModalOpen] = useState<Boolean>(false);
 
   // Access sessionStorage only after the component has mounted
   useEffect(() => {
@@ -28,7 +30,12 @@ const Writepage = () => {
 
   return (
     <main className="main">
+     {tagsModalOpen && <div style={{position: "absolute", width: "100vw", height: "100%", backgroundColor: "black", opacity: "0.8", zIndex: "10"}}>
+        <Modal isOpen={tagsModalOpen} user={undefined} type="tags" />
+      </div>}
       <div className="container">
+      
+        
         <TextareaAutosize
           onChange={(e) => setTitle(e.target.value)}
           value={title}

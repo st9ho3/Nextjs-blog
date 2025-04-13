@@ -62,6 +62,5 @@ type JsonValue =
   type JsonContent =
   | { [key: string]: JsonContent };
 
-
-  
+  type Type = "tags" | "profile";
   
