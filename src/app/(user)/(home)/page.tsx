@@ -5,7 +5,7 @@ import '../../(components)/header.css';
 import Sidebar from '@/app/(components)/sidebar';
 import { getArticles } from '@/app/_lib/utils';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60; // Revalidate every 60 seconds
 
 const page = async () => {
   const data = await getArticles();
