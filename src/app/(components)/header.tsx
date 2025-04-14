@@ -16,7 +16,7 @@ const Header = () => {
 
   const [user, setUser] = useState<Author | undefined>(undefined);
   const [loading, setLoading] = useState(true);
-  const [profileModalOpen, setProfileModalOpen] = useState<Boolean>(false);
+  const [profileModalOpen, setProfileModalOpen] = useState<boolean>(false);
   const isWrite: string = usePathname();
 
   useEffect(() => {

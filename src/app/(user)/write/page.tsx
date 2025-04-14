@@ -13,7 +13,7 @@ const Editor = dynamic(() => import("../../../editor/editor"), {ssr: false})
 const Writepage = () => {
 
   const [title, setTitle] = useState<string>("")
-  const [tagsModalOpen, setTagsModalOpen] = useState<Boolean>(false);
+  const [tagsModalOpen] = useState<boolean>(false);
 
   // Access sessionStorage only after the component has mounted
   useEffect(() => {

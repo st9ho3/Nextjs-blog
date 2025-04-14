@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react'
+import Image from 'next/image';
 import { IoClose } from "react-icons/io5";
 import './Modal.css';
 
@@ -34,15 +35,15 @@ export const Tags = ["Technology",
     "Real Estate",
     "Automotive"]
 
-const Modal = ({ user, type, isOpen}: {user: Author | undefined, type: Type, isOpen: Boolean}) => {
-    const [open, setOpen] = useState<Boolean>(isOpen);
+const Modal = ({ user, type, isOpen}: {user: Author | undefined, type: Type, isOpen: boolean}) => {
+    const [open, setOpen] = useState(isOpen);
   const tags = Tags;
   
 
   useEffect(() => {
-    const handleEsc = (e: any) => {
+    const handleEsc = (e: KeyboardEvent): void => {
       if (e.key === "Escape") {
-        setOpen(false);
+      setOpen(false);
       };
     };
 
@@ -84,7 +85,7 @@ const Modal = ({ user, type, isOpen}: {user: Author | undefined, type: Type, isO
               <div className="profile-modal-content">
                 {sessionStorage.getItem("userId") && (
                   <>
-                    <img 
+                    <Image 
                       src={user?.profilePicture || '/man.png'} 
                       alt="Profile" 
                       className="profile-modal-image"
