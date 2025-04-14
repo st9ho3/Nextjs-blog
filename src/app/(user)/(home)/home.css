@@ -51,6 +51,7 @@
         padding: .7rem;
         flex-grow: 1;
         overflow-y: scroll;
+        overflow-x: hidden;
         max-width: 100%;
     }
     .homepage {

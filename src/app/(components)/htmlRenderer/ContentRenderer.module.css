@@ -17,8 +17,8 @@
     max-width: 100%; /* Makes image responsive */
     height: 20rem;    /* Maintains aspect ratio */
     display: block; /* Prevents extra space below */
-    margin-left: auto; /* Helps centering if container is text-aligned */
-    margin-right: auto; /* Helps centering if container is text-aligned */
+    margin-left: auto; 
+    margin-right: auto; 
   }
 }
 @media (min-width: 360px) and (max-width: 440px) {
