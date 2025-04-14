@@ -13,7 +13,7 @@ const Editor = dynamic(() => import("../../../editor/editor"), {ssr: false})
 const Writepage = () => {
 
   const [title, setTitle] = useState<string>("")
-  const [tagsModalOpen] = useState<boolean>(false);
+  const [tagsModalOpen] = useState<boolean>(true);
 
   // Access sessionStorage only after the component has mounted
   useEffect(() => {
@@ -30,9 +30,9 @@ const Writepage = () => {
 
   return (
     <main className="main">
-     {tagsModalOpen && <div style={{position: "absolute", width: "100vw", height: "100%", backgroundColor: "black", opacity: "0.8", zIndex: "10"}}>
+     
         <Modal isOpen={tagsModalOpen} user={undefined} type="tags" />
-      </div>}
+      
       <div className="container">
       
         

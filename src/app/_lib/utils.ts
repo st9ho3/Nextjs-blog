@@ -10,7 +10,7 @@ import { nanoid } from "nanoid";
  * @returns {object|undefined} The parsed JSON object from session storage, or undefined if the key 'editorContent' is not found.
  */
 export const loadFromStorage = (loadedContent: string) => {
-  const storageString = sessionStorage.getItem(loadedContent === 'editorContent' ? 'editorContent' : 'articleTitle');
+  const storageString = sessionStorage.getItem(loadedContent === 'editorContent' ? 'editorContent' : loadedContent === 'articleTitle' ? 'articleTitle' :  'Categories' );
   return storageString ? JSON.parse(storageString) : undefined;
 };
 
@@ -156,13 +156,13 @@ const clearStorage = () => {
     }
   }
 
-  const createArticleObject = (author: Author, content: PartialBlock[]) => {
+  const createArticleObject = (author: Author, content: PartialBlock[], tags: string[]) => {
     const now = new Date();
     const newId = nanoid(); // Generate a unique ID for the article
   
     const article = {
       id: newId, // Generate a unique ID for the article,
-      title: loadFromStorage('title'),
+      title: loadFromStorage('articleTitle') || 'No title', // Title of the article
       metadata: {
         date: now.toLocaleDateString(), // Human-readable date
         time: now.toLocaleTimeString(), // Human-readable time
@@ -174,7 +174,7 @@ const clearStorage = () => {
       shares: 0, // Initial shares count
       saves: 0, // Initial saves count
       content: content, // Article content (blocks),
-      tags: ['politics', 'news'], // Example tags, replace with actual tags
+      tags: tags, // Example tags, replace with actual tags
     };
   
     return article;
@@ -183,12 +183,10 @@ const clearStorage = () => {
   export const PublishArticle = async ( author: Author) => {
     const JSONContent = sessionStorage.getItem('editorContent');
     const theContent = JSONContent ? JSON.parse(JSONContent) : undefined;
-  
-    // 1. Create deep copy of content
-    const content = JSON.parse(JSON.stringify(theContent));
+    const tags = loadFromStorage('Categories') || [];
   
     // 3. Create article with sanitized content
-    const newArticle = createArticleObject(author, content);
+    const newArticle = createArticleObject(author, theContent, tags );
   
     // 4. Save to Firestore
     await setDoc(doc(db, "articles", newArticle.id), newArticle);

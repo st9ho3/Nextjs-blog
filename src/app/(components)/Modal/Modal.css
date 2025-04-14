@@ -61,7 +61,7 @@
   }
   
   .tag-pill.selected {
-    background-color: #000; /* Black background for selected tag */
+    background-color: #903232; /* Black background for selected tag */
     color: #fff; /* White text for contrast */
   }
   

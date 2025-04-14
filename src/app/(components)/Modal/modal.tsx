@@ -37,7 +37,13 @@ export const Tags = ["Technology",
 
 const Modal = ({ user, type, isOpen}: {user: Author | undefined, type: Type, isOpen: boolean}) => {
     const [open, setOpen] = useState(isOpen);
-  const tags = Tags;
+    const [selectedTags, setSelectedTags] = useState<string[]>([]);
+    const tags = Tags;
+ 
+    const chooseTags = (tags: string[]): void => {
+      sessionStorage.setItem("Categories",JSON.stringify(tags))
+      setOpen(false);
+    }
   
 
   useEffect(() => {
@@ -52,17 +58,17 @@ const Modal = ({ user, type, isOpen}: {user: Author | undefined, type: Type, isO
     }
     return () => window.removeEventListener("keydown", handleEsc);
   }, [open])
-
+  console.log(open)
   return (
     <>
     
-      {open && sessionStorage.getItem("userId") && (
+      {open && (
       <div className={`ModalBackground-${type}`}>
         <div className={`${type}-modal-overlay`} onClick={() => setOpen(false)}>
           <div className={`tags-modal-content`} onClick={(e) => e.stopPropagation()}>
             <IoClose 
               className="tags-modal-close-btn"
-              /* onClick={() => dispatch({ type: 'CLEAN' })} */
+              onClick={() => setOpen(false)}
               aria-label="Close modal"
             />
             
@@ -73,13 +79,20 @@ const Modal = ({ user, type, isOpen}: {user: Author | undefined, type: Type, isO
                   {tags.map((tag) => (
                     <span 
                       key={tag}
-                      /* onClick={() => dispatch({ type: 'SET_TAGS', payload: tag })} */
-                      /* className={`tag-pill ${state.chosenTags.includes(tag) ? 'selected' : ''}`} */
+                      onClick={() => {
+                        if (!selectedTags.includes(tag)) {
+                          setSelectedTags((prev) => [...prev, tag]);
+                        } else {
+                          setSelectedTags((prev) => prev.filter((t)=> t !== tag) )
+                        }
+                      }}
+                      className={`tag-pill ${selectedTags.includes(tag) ? 'selected' : ''}`}
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
+                <button onClick={() => chooseTags(selectedTags) }>Apply</button>
               </>
             ) : type === 'profile' ? (
               <div className="profile-modal-content">

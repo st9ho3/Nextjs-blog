@@ -24,11 +24,14 @@ const createAuthorObject = (userid: string, name: string): Author => {
       "https://firebasestorage.googleapis.com/v0/b/the-notes-app-cfe0c.appspot.com/o/images%2F1737994837627profile2.png?alt=media&token=b95062e9-5880-404f-a66e-c257898bb36e",
       "https://firebasestorage.googleapis.com/v0/b/the-notes-app-cfe0c.appspot.com/o/images%2F1737994768589profile1.png?alt=media&token=00e935ed-e88e-4e6c-8d85-643c069407a4",
       "https://firebasestorage.googleapis.com/v0/b/the-notes-app-cfe0c.appspot.com/o/images%2F1737995076503profile3.png?alt=media&token=71ae0765-afd6-470b-bf4e-b712deb294c1",
-      "https://firebasestorage.googleapis.com/v0/b/the-notes-app-cfe0c.appspot.com/o/images%2F1737995091638profile4.png?alt=media&token=72d06828-601e-45ad-bf19-d678ee5eca3b"
+      "https://firebasestorage.googleapis.com/v0/b/the-notes-app-cfe0c.appspot.com/o/images%2F1737995091638profile4.png?alt=media&token=72d06828-601e-45ad-bf19-d678ee5eca3b",
+      "https://firebasestorage.googleapis.com/v0/b/the-notes-app-cfe0c.appspot.com/o/images%2Fsam1.png?alt=media&token=4428b127-72c4-4fed-b56a-6c97fe5ef183",
+      "https://firebasestorage.googleapis.com/v0/b/the-notes-app-cfe0c.appspot.com/o/images%2Fsam2.png?alt=media&token=9940ac8d-94b6-4946-ad0f-2329b6d4b121",
+      "https://firebasestorage.googleapis.com/v0/b/the-notes-app-cfe0c.appspot.com/o/images%2Fsam3.png?alt=media&token=1a8fe013-ec34-40bb-a792-2b2374e55587"
     ];
     const now = new Date()
     function getRandom0To3(): number {
-      return Math.floor(Math.random() * 4);
+      return Math.floor(Math.random() * 7);
     }
     const randomIndex = getRandom0To3()
     const author: Author = {
