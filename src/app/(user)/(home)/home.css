@@ -17,8 +17,6 @@
         display: flex;
         height: 100vh;
         flex-direction: row;
-        width: 100%;
-        overflow-x:unset
         
     }
 }
@@ -51,8 +49,7 @@
         padding: .7rem;
         flex-grow: 1;
         overflow-y: scroll;
-        overflow-x: hidden;
-        max-width: 100%;
+        
     }
     .homepage {
         display: flex;
