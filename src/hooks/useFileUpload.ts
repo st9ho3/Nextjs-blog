@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import {  useState } from 'react';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'; 
 import { storage} from '../app/_db/Firebase'; // Adjust the import based on your project structure
 
@@ -6,11 +6,10 @@ import { storage} from '../app/_db/Firebase'; // Adjust the import based on your
 const useFileUpload = (options: UploadFileOptions) => {
     const [progress, setProgress] = useState<number>(0);
     const [error, setError] = useState<string | null>(null);
-    const fileInputRef = useRef<HTMLInputElement>(null);
-    const selectedRef = useRef<string | null>("")
+    
 
     // Function to handle the file upload process
-        const uploadFile = async (file: File, blockId?: string | undefined): Promise<string | Record<string, any>> => {
+        const uploadFile = async (file: File): Promise<string | Record<string, undefined>> => {
           const storageRef = ref(storage, `${options.storagePath}/${new Date().getTime()}${file.name}`);
           console.log("File to upload:", storageRef);
           const uploadTask = uploadBytesResumable(storageRef, file);
@@ -44,7 +43,9 @@ const useFileUpload = (options: UploadFileOptions) => {
         };
 
 return {
-    uploadFile
+    uploadFile,
+    progress,
+    error,
     }
 }
 

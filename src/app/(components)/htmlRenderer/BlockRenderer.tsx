@@ -1,9 +1,10 @@
 // components/BlockRenderer.tsx
 import React, { JSX } from 'react';
-import { Block, BlockProps, HeadingBlock, ListItemBlock, CheckListItemBlock, CodeBlock, TableBlock, InlineContent, TableContentData } from './content';
+import { Block, BlockProps, HeadingBlock, ListItemBlock, CheckListItemBlock, CodeBlock, TableBlock, InlineContent, TableContentData, ImageBlock } from './content';
 import InlineContentRenderer from './InlineContentRenderer';
 import TableRenderer from './TableRenderer';
 import ContentRenderer from './ContentRenderer';
+import Image from 'next/image';
 import styles from './ContentRenderer.module.css'; // Import the CSS module
 
 // Keep this function: It applies specific overrides from JSON props
@@ -97,6 +98,21 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ block }) => {
         <div className={styles.tableWrapper} style={inlineBlockStyle}>
             <TableRenderer content={tableBlock.content as TableContentData} />
         </div>
+      );
+
+      case 'image': // <-- Add this case
+      const imgBlock = block as ImageBlock; // Type assertion
+      return (
+        <figure key={block.id} className={styles.imageContainer}> {/* Optional wrapper */}
+          <Image
+            src={imgBlock.props.url}
+            alt={imgBlock.props.name || ''} // Provide default empty alt text
+            width={imgBlock.props.previewWidth}
+            height={imgBlock.props.previewWidth}
+            className={styles.image} // Add a CSS class for styling
+            style={{ textAlign: block.props.textAlignment }} // Apply alignment if needed
+          />
+        </figure>
       );
 
     default:

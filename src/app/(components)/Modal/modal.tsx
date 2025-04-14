@@ -86,6 +86,8 @@ const Modal = ({ user, type, isOpen}: {user: Author | undefined, type: Type, isO
                 {sessionStorage.getItem("userId") && (
                   <>
                     <Image 
+                      width={50}
+                      height={50}
                       src={user?.profilePicture || '/man.png'} 
                       alt="Profile" 
                       className="profile-modal-image"

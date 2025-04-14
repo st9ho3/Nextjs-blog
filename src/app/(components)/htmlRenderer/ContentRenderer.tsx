@@ -21,6 +21,7 @@ const ContentRenderer: React.FC<ContentRendererProps> = ({ content, isNested = f
     const isBulletedList = block.type === 'bulletListItem';
     const isCheckList = block.type === 'checkListItem';
     const isAnyList = isNumberedList || isBulletedList || isCheckList;
+    
 
     if (isAnyList) {
         const listType = isNumberedList ? 'ol' : 'ul';

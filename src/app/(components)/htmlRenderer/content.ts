@@ -106,6 +106,19 @@ export interface StyleMap {
       content: TableContentData;
       // Table block itself might have props like textColor, but cell props override
   }
+
+  export interface ImageBlock extends BaseBlock {
+    type: "image";
+    props: BaseBlock["props"] & { // Inherit base props like textAlignment, backgroundColor
+        url: string;                 // Changed from src to url
+        name?: string;                // Added name (optional)
+        caption: string;              // Changed from InlineContent[] to string
+        previewWidth?: number;        // Added previewWidth (optional)
+        showPreview?: boolean;         // Added showPreview (optional)
+    };
+    content: []; // Images typically don't have inline content directly
+    children: []; // Images typically don't have children blocks
+}
   
   
   // Union of all possible block types
@@ -116,6 +129,7 @@ export interface StyleMap {
     | CheckListItemBlock
     | CodeBlock
     | TableBlock
+    | ImageBlock
     // Add other block types here if they exist
     | BaseBlock; // Fallback for unspecific types if needed
   
