@@ -13,6 +13,22 @@
     padding-right: 1rem;
     width: 85%;
   }
+  .image {
+    max-width: 100%; /* Makes image responsive */
+    height: 20rem;    /* Maintains aspect ratio */
+    display: block; /* Prevents extra space below */
+    margin-left: auto; /* Helps centering if container is text-aligned */
+    margin-right: auto; /* Helps centering if container is text-aligned */
+  }
+}
+@media (min-width: 360px) and (max-width: 440px) {
+  .image {
+    max-width: 100%; /* Makes image responsive */
+    height: 11rem;    /* Maintains aspect ratio */
+    display: block; /* Prevents extra space below */
+    margin-left: auto; /* Helps centering if container is text-aligned */
+    margin-right: auto; /* Helps centering if container is text-aligned */
+  }
 }
 
 /* --- Element-Specific Styles --- */
@@ -114,14 +130,6 @@
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   text-align: center; /* Example: Center images by default */
-}
-
-.image {
-  max-width: 100%; /* Makes image responsive */
-  height: auto;    /* Maintains aspect ratio */
-  display: block; /* Prevents extra space below */
-  margin-left: auto; /* Helps centering if container is text-aligned */
-  margin-right: auto; /* Helps centering if container is text-aligned */
 }
 
 .caption {
