@@ -64,3 +64,9 @@ type JsonValue =
 
   type Type = "tags" | "profile";
   
+  interface UploadFileOptions {
+    storagePath: string; // Path in storage where the file will be uploaded
+    onUploadSuccess: (url: string) => void; // Callback function to execute on successful upload
+    maxFileSize?: number; // Optional maximum file size in bytes
+    allowedFileTypes?: string[]; // Optional array of allowed file types (e.g., ['image/jpeg', 'image/png'])
+  }

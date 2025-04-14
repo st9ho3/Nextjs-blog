@@ -7,14 +7,22 @@ import { saveToStorage, loadFromStorage } from '@/app/_lib/utils'
 import { BlockNoteView } from '@blocknote/mantine'
 import "@blocknote/core/fonts/inter.css"
 import "@blocknote/core/style.css"
-
 import { BlockNoteEditor, PartialBlock } from '@blocknote/core'
+import useFileUpload from '@/hooks/useFileUpload'
 
 const Editor = () => {
 
     const [initialContent, setInitialContent] = useState<
     PartialBlock[] | undefined | "loading"
   >("loading"); 
+  const { uploadFile } = useFileUpload({
+    storagePath: "images",
+    onUploadSuccess: (url) => {
+      console.log("File uploaded successfully:", url);
+    },
+    maxFileSize: 2 * 1024 * 1024, // 2MB
+    allowedFileTypes: ['image/png', 'image/jpeg', 'image/gif']
+  })
  
   // Loads the previously stored editor contents.
   useEffect(() => {
@@ -29,7 +37,10 @@ const Editor = () => {
     if (initialContent === "loading") {
       return undefined;
     }
-    return BlockNoteEditor.create({ initialContent });
+    return BlockNoteEditor.create({
+      initialContent,
+      uploadFile
+    });
   }, [initialContent]);
  
   if (editor === undefined) {
