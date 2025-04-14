@@ -14,7 +14,8 @@
   align-items: center;
   padding: 0.5rem;
   border-bottom: solid thin var(--border-color);
-  max-width: 100%;
+  width: 100%;
+  max-width: auto;
 }
 
 .header.fixed {
@@ -60,4 +61,10 @@
   display: flex;
   padding-inline: 0.5rem;
   margin-left: 59rem;
+}
+
+@media (max-width: 850px) {
+  .headerRight {
+    margin-left: 8rem;
+  }
 }
