@@ -28,7 +28,6 @@ export default async function ArticlePage({
     getAuthorById(userID)
   ]);
 
-  console.log(author); // Keep logging for debugging if needed
 
   // Use Next.js 404 helper if article doesn't exist
   if (!article) {
@@ -68,20 +67,20 @@ export default async function ArticlePage({
             </div>
           </div>
         </div>
-        <div className="social-icons">
+        <div className="social-icons article-social-icons">
           <div className="social-container">
-            <FaHandsClapping className="social-icon" />
-            <span className="social-number">{article?.likes || 0}</span>
+            <FaHandsClapping className="social-icon article-social-icon" />
+            <span className="social-number article-number">{article?.likes || 0}</span>
           </div>
           <div className="social-container">
-            <FaComment className="social-icon" />
-            <span className="social-number">
+            <FaComment className="social-icon article-social-icon" />
+            <span className="social-number article-number">
               {article?.comments?.length || 0}
             </span>
           </div>
           <div className="social-container">
-            <FaRegBookmark className="social-icon" />
-            <span className="social-number">{article.saves}</span>
+            <FaRegBookmark className="social-icon article-social-icon" />
+            <span className="social-number article-number">{article.saves}</span>
           </div>
         </div>
       </div>

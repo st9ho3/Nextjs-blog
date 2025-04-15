@@ -26,7 +26,6 @@ export const getAllAuthors = cache(async (): Promise<Author[]> => {
 
 // Function to get a SINGLE author by ID
 export const getAuthorById = cache(async (userId: string): Promise<Author | null> => {
-    console.log(`Workspaceing author ${userId} from Firestore...`);
     if (!userId) return null; // Handle cases where ID might be missing
 
     try {

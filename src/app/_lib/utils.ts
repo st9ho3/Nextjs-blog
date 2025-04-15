@@ -190,7 +190,6 @@ const clearStorage = () => {
   
     // 4. Save to Firestore
     await setDoc(doc(db, "articles", newArticle.id), newArticle);
-    console.log("Document written with ID: ", newArticle.id);
     await updateDoc(doc(db, "authors", author.id), {
       articles: arrayUnion(newArticle.id)
     });

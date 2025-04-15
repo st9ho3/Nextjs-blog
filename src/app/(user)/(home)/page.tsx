@@ -7,13 +7,19 @@ import { getArticles } from '@/app/_lib/utils';
 
 export const revalidate = 60; // Revalidate every 60 seconds
 
-const page = async () => {
+const page = async ({searchParams}: {searchParams: Promise<{type?: string}>}) => {
+  const filter = (await searchParams).type;
   const data = await getArticles();
-  console.log('Data:', data);
+
+  const articlesTodisplay = filter ?  data.filter((article) => {
+    const tags = article.tags.map((tag)=> tag.toLocaleLowerCase())
+    return tags.includes(filter)
+}) : data
+  
   return (
     <div className="homepage">
       {<div className="home">
-        {data.length > 0 ? data.map((article: Article) => (
+        {articlesTodisplay.length > 0 ? articlesTodisplay.map((article: Article) => (
           <ArticlePreview key={article.id} article={article} />
         )): <h2>Loading Articles...</h2> }
       </div>}

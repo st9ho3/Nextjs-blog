@@ -105,6 +105,18 @@
       line-height: 1.6; /* Improve readability */
       
   }
+  
+  .article-social-icon {
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  .article-social-icon:hover {
+    color: #959695; /* Example hover color */
+  }
+  .article-number {
+    font-size: .9rem;
+  }
 
   @media (max-width: 460px) {
     .article-page-main {

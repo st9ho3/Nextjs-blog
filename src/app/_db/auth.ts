@@ -8,7 +8,6 @@ const signUp = async (email: string, password: string): Promise<string> => {
     .then((userCredential) => {
       // Signed up 
       const user = userCredential.user;
-      console.log('User registered:', user);
       return user.uid
     })
     .catch((error) => {
@@ -72,14 +71,12 @@ const createAuthorObject = (userid: string, name: string): Author => {
   export const registerUser = async (email: string, password: string, name: string): Promise<string> => {
     // Sign up the user with Firebase Auth and get a unique ID
     const id = await signUp(email, password);
-    console.log("Firebase user ID:", id);
     // Create the new author object
     const newUser = createAuthorObject(id, name);
-    console.log("New Author Object:", newUser);
+    
   
     // Save the user to Firestore
     await setDoc(doc(db, "authors", id), newUser);
-    console.log("User registered with Firestore document ID:", id);
     return id
   };
 
