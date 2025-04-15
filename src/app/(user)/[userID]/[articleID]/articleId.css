@@ -1,0 +1,149 @@
+/* app/(user)/[userID]/[articleID]/articleId.css */
+
+.article-page-main {
+    padding: .5rem;
+    max-width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .article-title {
+    width: 60%; /* Consider using % or relative units for responsiveness */
+    margin-bottom: 1rem;
+    font-size: 2.6rem;
+    text-align: left; /* Explicitly set text alignment if needed */
+    align-self: center; /* Ensure title aligns with the centered main container */
+  }
+  
+  .details-bar {
+    width: 60%; /* Match title width */
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 2rem; /* Add some space below the details bar */
+    padding: 0.5rem 0; /* Add some vertical padding inside the bar */
+    align-self: center; /* Ensure bar aligns with the centered main container */
+  }
+  
+  .author-details {
+    display: flex;
+    align-items: center; /* Vertically align items */
+    gap: 1rem;
+    font-family: 'Inter', sans-serif; /* Add fallback font */
+    margin: 0.2rem 0; /* Adjusted margin */
+  }
+  
+  .author-profile-picture {
+    width: 2.5rem; /* 40px */
+    height: 2.5rem; /* 40px */
+    border-radius: 50%;
+    object-fit: cover; /* Ensure image covers the area well */
+  }
+  
+  .author-info {
+    display: flex;
+    flex-direction: column;
+    color: rgb(55, 55, 55);
+    justify-content: center; /* Vertically center content if needed */
+  }
+  
+  .author-name-follow {
+    display: flex;
+    align-items: center;
+  }
+  
+  .author-name {
+    cursor: pointer;
+    color: rgb(55, 55, 55);
+    font-family: 'Inter', Helvetica, sans-serif; /* Add fallback fonts */
+    font-size: 0.9rem;
+    font-weight: 500; /* Slightly bolder name perhaps */
+    transition: color 0.2s ease;
+  }
+  .author-name:hover {
+    color: #606060; /* Example hover color */
+  }
+  
+  /* Style the dot icon if needed */
+  .author-name-follow svg {
+    color: gray; /* Example style */
+    /* Adjust size or margins if necessary */
+  }
+  
+  
+  .follow-button {
+    cursor: pointer;
+    font-size: 0.9rem; /* Match author name size */
+    color: #1a8917; /* Example follow button color */
+    margin: 0; /* Reset default paragraph margin */
+    margin-left: 0.25rem; /* Add slight space after the dot */
+    transition: color 0.2s ease; /* Smooth hover effect */
+  }
+  
+  .follow-button:hover {
+      color: #125a10; /* Darker color on hover */
+  }
+  
+  
+  
+  .publication-date {
+    font-size: 0.9rem;
+    margin-top: 0.3rem; /* Space between name/follow and date */
+    color: rgb(80, 80, 80); /* Slightly lighter color for date */
+    margin-bottom: 0; /* Reset default paragraph margin */
+  }
+  
+  .article-content-container {
+      width: 65%; /* Align content width with title/details bar */
+      display: flex;
+      justify-content: center;
+      /* Add any specific styling needed for the content area itself */
+      margin-top: 1rem; /* Add space above the actual content */
+      line-height: 1.6; /* Improve readability */
+      
+  }
+
+  @media (max-width: 460px) {
+    .article-page-main {
+      padding: 0; /* Adjust padding for smaller screens */
+      border: solid 1px rgb(240, 4, 4)
+    }
+    .article-content-container {
+      width: 100%; /* Adjust width for smaller screens */
+    }
+    .article-title {
+      width: 100%; /* Adjust title width for smaller screens */
+      font-size: 2.1rem; /* Slightly smaller font size */
+      margin-top: 1rem;
+      padding: 0;
+    }
+    .details-bar {
+      width: 100%; /* Adjust details bar width for smaller screens */
+    }
+  } 
+  @media (max-width: 836px) {
+    .article-content-container {
+      width: 85%; /* Adjust width for smaller screens */
+    }
+    .article-title {
+      width: 80%; /* Adjust title width for smaller screens */
+      font-size: 2.3rem; /* Slightly smaller font size */
+    }
+    .details-bar {
+      width: 80%; /* Adjust details bar width for smaller screens */
+    }
+  } 
+  
+  /* Optional: Add styles for elements *within* ContentRenderer if needed */
+  /* For example: */
+  /*
+  .article-content-container p {
+    margin-bottom: 1rem;
+  }
+  
+  .article-content-container h2 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  */
