@@ -10,12 +10,11 @@
 
 .header {
   display: flex;
-  position: relative;
+  position: relative; /* Keep relative if needed for children */
   align-items: center;
   padding: 0.5rem;
   border-bottom: solid thin var(--border-color);
   width: 100%;
-  max-width: auto;
 }
 
 .header.fixed {
@@ -55,12 +54,15 @@
   width: var(--profile-pic-size);
   height: var(--profile-pic-size);
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .headerRight {
   display: flex;
+  align-items: center; /* Vertically align items in the right group */
   padding-inline: 0.5rem;
-  margin-left: 59rem;
+  margin-left: auto; /* THIS IS THE KEY CHANGE - Pushes this div to the right */
+  gap: 0.5rem; /* Add some space between items in headerRight */
 }
 
 @media (max-width: 850px) {

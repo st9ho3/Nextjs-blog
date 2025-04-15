@@ -39,14 +39,14 @@ const ArticlePreview = ({ article }: { article: Article }) => {
 
         {/* Article link */}
         <Link
-          href={`/${article.author.name}/${article.id}`}
+          href={`/${article.author.id}/${article.id}`}
           className="article-link"
         >
           <h1 className="title">{title}</h1>
           <p className="subtitle">{subtitle}</p>
 
           <div className="social-icons">
-            <p className="social-icon date">{article.date}</p>
+            <p className="social-icon date">{article.metadata.date}</p>
             <div className="social-container">
               <FaHandsClapping className="social-icon" />
               <span className="social-number">{article?.likes || 0}</span>

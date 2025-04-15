@@ -23,9 +23,7 @@ html, body {
 }
 
 body {
-  font-family: 'Inter', 'Helvetica';
-  /* overflow-x: hidden; is already inherited from html, body rule */
-}
+  font-family: 'Inter', 'Helvetica';}
 
 a {
   text-decoration: none;

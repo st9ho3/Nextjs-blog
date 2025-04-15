@@ -49,7 +49,6 @@
         flex-grow: 1;
         overflow-y: scroll;
         overflow-x: hidden;
-        border: solid thin red;
     }
     .homepage {
         display: flex;

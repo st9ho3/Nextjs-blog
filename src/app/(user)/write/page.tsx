@@ -30,12 +30,11 @@ const Writepage = () => {
 
   return (
     <main className="main">
-     
-        <Modal isOpen={tagsModalOpen} user={undefined} type="tags" />
+     <Modal isOpen={tagsModalOpen} user={undefined} type="tags" />
+       
       
       <div className="container">
       
-        
         <TextareaAutosize
           onChange={(e) => setTitle(e.target.value)}
           value={title}

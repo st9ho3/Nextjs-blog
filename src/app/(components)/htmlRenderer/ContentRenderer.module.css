@@ -9,9 +9,9 @@
 /* Responsive Padding for the main content area */
 @media (min-width: 768px) {
   .contentWrapper {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    
     width: 85%;
+    
   }
   .image {
     max-width: 100%; /* Makes image responsive */

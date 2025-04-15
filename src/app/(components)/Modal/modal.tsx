@@ -92,7 +92,7 @@ const Modal = ({ user, type, isOpen}: {user: Author | undefined, type: Type, isO
                     </span>
                   ))}
                 </div>
-                <button onClick={() => chooseTags(selectedTags) }>Apply</button>
+                <div className='profile-logout-btn tagbutton' onClick={() => chooseTags(selectedTags) }>Apply</div>
               </>
             ) : type === 'profile' ? (
               <div className="profile-modal-content">
