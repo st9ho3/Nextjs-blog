@@ -4,6 +4,8 @@ import { getArticleById, getAuthorById } from "@/app/_db/services"; // Adjust im
 import { notFound } from 'next/navigation';
 import ContentRenderer from "@/app/(components)/htmlRenderer/ContentRenderer";
 import { BsDot } from "react-icons/bs";
+import { FaHandsClapping, FaRegBookmark } from 'react-icons/fa6';
+import { FaComment } from 'react-icons/fa';
 import Image from "next/image";
 import './articleId.css'; // Import the CSS file
 
@@ -11,13 +13,13 @@ import './articleId.css'; // Import the CSS file
 export default async function ArticlePage({
   params
 }: {
-  params: { // Corrected params type - no Promise needed here
+  params: Promise<{ // Corrected params type - no Promise needed here
     userID: string;
     articleID: string;
-  }
+  }>
 }) {
   // Destructure articleID and userID directly from params
-  const { articleID, userID } = params;
+  const { articleID, userID } = await params;
 
   // Fetch the article and author using the database services
   // Use Promise.all for potentially parallel fetching
@@ -64,6 +66,22 @@ export default async function ArticlePage({
             <div className="publication-info">
               <p className="publication-date">Published on {publicationDate}</p>
             </div>
+          </div>
+        </div>
+        <div className="social-icons">
+          <div className="social-container">
+            <FaHandsClapping className="social-icon" />
+            <span className="social-number">{article?.likes || 0}</span>
+          </div>
+          <div className="social-container">
+            <FaComment className="social-icon" />
+            <span className="social-number">
+              {article?.comments?.length || 0}
+            </span>
+          </div>
+          <div className="social-container">
+            <FaRegBookmark className="social-icon" />
+            <span className="social-number">{article.saves}</span>
           </div>
         </div>
       </div>

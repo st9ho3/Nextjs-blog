@@ -18,6 +18,8 @@
   }
   
   .details-bar {
+    display: flex;
+    justify-content: space-between; /* Space between author and date */  
     width: 60%; /* Match title width */
     border-top: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
