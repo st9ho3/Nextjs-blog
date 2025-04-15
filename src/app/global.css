@@ -7,15 +7,29 @@
   --menu-font-size-small: 1.5rem;
 }
 
-* {
+/* Apply box-sizing globally */
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
 
+/* Ensure html and body cover the viewport width and hide overflow */
+html, body {
+  width: 100%;
+  max-width: 100%; /* Reinforce width constraint */
+  overflow-x: hidden;
+  position: relative; /* Can sometimes help contain absolutely positioned children */
 }
 
 body {
   font-family: 'Inter', 'Helvetica';
-  overflow-x: hidden;
+  /* overflow-x: hidden; is already inherited from html, body rule */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 a {
