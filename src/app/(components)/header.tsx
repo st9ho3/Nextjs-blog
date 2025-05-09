@@ -10,6 +10,7 @@ import { LuMenu } from 'react-icons/lu';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Modal from './Modal/modal';
+import { cookies } from 'next/headers';
 
 
 const Header = () => {
@@ -20,13 +21,9 @@ const Header = () => {
   const isWrite: string = usePathname();
 
   useEffect(() => {
-    const storedId = sessionStorage.getItem("userId");
-    // userId in sessionStorage is often stored with quotes, remove them
-    const userId = storedId ? JSON.parse(storedId) : null;
 
-    if (userId) {
         setLoading(true);
-        fetch(`/api/${userId}`) // Fetch specific user
+        fetch(`/api/user`) // Fetch specific user
             .then(res => {
                 if (!res.ok) {
                    throw new Error(`HTTP error! status: ${res.status}`);
@@ -42,20 +39,8 @@ const Header = () => {
                 setUser(undefined); // Handle error state
              })
             .finally(() => setLoading(false));
-    } else {
-        setLoading(false); // No user ID found
-    }
+    
 }, []); // Runs once on mount
-  
-  /* useEffect(() => {
-    const header: HTMLElement | null = document.querySelector('.header');
-    const handleScroll = () => {
-      header?.classList.toggle('fixed', window.scrollY > 0);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []); */
 
 
   return (
@@ -78,6 +63,7 @@ const Header = () => {
             text={isWrite === '/write' ? 'Publish it' : 'Start Writting'}
             author={user}  
           /> 
+          <p>{user?.email}</p>
 
           <LuMenu className="menu" />
           {user ? !loading && <Image
@@ -87,7 +73,7 @@ const Header = () => {
             className="profile-info-pic top"
             alt="profile-pic"
             onClick={() => setProfileModalOpen(!profileModalOpen)}
-          /> : <AuthButton text='Sign in'  />}
+          /> : <AuthButton text='Sign in'  />  }
         </div>
       </div>
     </div>

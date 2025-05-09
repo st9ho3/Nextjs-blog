@@ -1,5 +1,5 @@
 import ArticlePreview from '@/app/(components)/articlePreview';
-import React from 'react';
+import React, { Suspense } from 'react';
 import './home.css';
 import '../../(components)/header.css';
 import Sidebar from '@/app/(components)/sidebar';
@@ -18,11 +18,13 @@ const page = async ({searchParams}: {searchParams: Promise<{type?: string}>}) =>
   
   return (
     <div className="homepage">
+      <Suspense fallback={<h2>Loading Articles...</h2>}>
       {<div className="home">
         {articlesTodisplay.length > 0 ? articlesTodisplay.map((article: Article) => (
           <ArticlePreview key={article.id} article={article} />
         )): <h2>Loading Articles...</h2> }
       </div>}
+      </Suspense>
       <Sidebar /> 
     
     </div>

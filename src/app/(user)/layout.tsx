@@ -5,6 +5,8 @@ import { Brygada_1918, Inter} from "next/font/google";
 import "../global.css";
 import "@blocknote/mantine/style.css"
 import Header from "../(components)/header";
+import { Suspense } from "react";
+import { AuthProvider } from "../_db/AuthContext";
 
 // Configure Inter (for headings and default)
 const inter = Inter({
@@ -36,8 +38,12 @@ export default function RootLayout({
       {/* Apply Inter as the main font class, making it the default */}
       {/* Use variables for specific overrides */}
       <body className={`${inter.className} ${notoSerifDisplay.variable}`}>
+        <AuthProvider>
         <Header />
+        <Suspense fallback={<h2>Loading...</h2>}>
         {children}
+        </Suspense>
+        </AuthProvider>
       </body>
     </html>
   );

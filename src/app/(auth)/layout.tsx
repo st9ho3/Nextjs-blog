@@ -1,3 +1,4 @@
+import { AuthProvider } from "../_db/AuthContext";
 import "./auth.css"
 import { Inter } from 'next/font/google';
 
@@ -18,7 +19,12 @@ export default function AuthLayout({
 }) {
   return (
     <html lang="en">
-      <body style={{ fontFamily: inter.style.fontFamily}}>{children}</body>
+      <body style={{ fontFamily: inter.style.fontFamily}}>
+        <AuthProvider>
+        {children}
+        </AuthProvider>
+      
+        </body>
     </html>
   )
 }

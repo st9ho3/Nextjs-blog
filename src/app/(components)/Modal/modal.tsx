@@ -96,7 +96,7 @@ const Modal = ({ user, type, isOpen}: {user: Author | undefined, type: Type, isO
               </>
             ) : type === 'profile' ? (
               <div className="profile-modal-content">
-                {sessionStorage.getItem("userId") && (
+                {(
                   <>
                     <Image 
                       width={50}
@@ -106,14 +106,28 @@ const Modal = ({ user, type, isOpen}: {user: Author | undefined, type: Type, isO
                       className="profile-modal-image"
                     />
                     <h2 className="profile-modal-name">
-                      {user?.name || 'User Name'}
+                      {user?.email || 'User Name'}
                     </h2>
                     
                     <button 
                       className="profile-logout-btn"
                       onClick={() => {
-                        localStorage.removeItem('authorizedUser');
-                        sessionStorage.removeItem('userId');
+                        fetch('/login/api/logout', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
+                          },
+                        })
+                        .then((res) => {
+                          if (res.ok) {
+                            window.location.href = '/';
+                          } else {
+                            console.error('Logout failed');
+                          }
+                        })
+                        .catch((error) => {
+                          console.error('Error during logout:', error);
+                        });
                       }}
                     >
                       Sign Out

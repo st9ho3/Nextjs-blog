@@ -79,21 +79,3 @@ const createAuthorObject = (userid: string, name: string): Author => {
     await setDoc(doc(db, "authors", id), newUser);
     return id
   };
-
-  export const signIn = async (email: string, password: string): Promise<string> => {
-    const auth = getAuth();
-    return signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        
-        // You can also fetch user data from Firestore here if needed
-        return user.uid
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.error('Sign-in error:', errorCode, errorMessage);
-        throw error; // Re-throw the error for handling in the calling code
-      });
-  }
