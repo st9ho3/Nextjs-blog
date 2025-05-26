@@ -21,12 +21,10 @@ export default function AuthLayout({
   children: React.ReactNode // Type definition for children, expecting a React node.
 }) {
   return (
-    <html lang="en"> {/* Sets the language of the HTML document to English. */}
-      {/* Applies the Inter font family to the body using inline styles. */}
+    <html lang="en"> 
       <body style={{ fontFamily: inter.style.fontFamily}}>
-        {/* Wraps the child components with AuthProvider to provide authentication context. */}
         <AuthProvider>
-        {children} {/* Renders the actual page content (e.g., LoginForm or RegisterForm). */}
+        {children}
         </AuthProvider>
       
         </body>
