@@ -46,12 +46,12 @@ if (app!) { // Check if app was successfully initialized or retrieved
     authInstance = admin.auth(app); // Get auth for the specific app instance
   } catch (error) {
     console.error("Error getting admin.auth() instance even after app initialization check:", error);
-    // @ts-ignore // Suppress TS error if authInstance might not be assigned.
+    // @ts-expect-error // Suppress TS error if authInstance might not be assigned.
     authInstance = undefined;
   }
 } else {
   console.error("Firebase Admin App was not initialized. Auth service will not be available.");
-  // @ts-ignore // Suppress TS error if authInstance might not be assigned.
+  // @ts-expect-error // Suppress TS error if authInstance might not be assigned.
   authInstance = undefined;
 }
 

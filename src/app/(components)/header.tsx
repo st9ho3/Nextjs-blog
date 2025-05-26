@@ -10,7 +10,6 @@ import { LuMenu } from 'react-icons/lu';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Modal from './Modal/modal';
-import { cookies } from 'next/headers';
 
 
 const Header = () => {
