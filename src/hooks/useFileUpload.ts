@@ -1,6 +1,6 @@
 import {  useState } from 'react';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'; 
-import { storage} from '../app/_db/Firebase'; // Adjust the import based on your project structure
+import { storage } from '../app/_db/Firebase'; // Adjust the import based on your project structure
 
 
 const useFileUpload = (options: UploadFileOptions) => {

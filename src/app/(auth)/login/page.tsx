@@ -49,9 +49,9 @@ const LoginForm = () => {
       // Redirects the user to the homepage upon successful login.
       router.push('/');
       router.refresh(); // Refreshes the page to ensure auth state is updated across the app.
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Sets the error message if login fails.
-      setError(error.message || 'An error occurred during login');
+      setError( error instanceof Error ? error.message : 'An error occurred during login');
     } finally {
       // setLoading(false); // setLoading(false) was removed, if it was intended, it should be reinstated here
     }

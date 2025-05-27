@@ -90,7 +90,7 @@ export default async function ArticlePage({
       {/* Container for rendering the main article content. */}
       <div className="article-content-container">
          {/* Renders the article content using the ContentRenderer component.*/}
-         <ContentRenderer content={htmlContent as any[]} /> 
+         <ContentRenderer content={htmlContent as []} /> 
       </div>
     </main>
   );

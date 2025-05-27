@@ -23,8 +23,8 @@ if (!admin.apps.length) {
         // databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
       });
       console.log("Firebase Admin SDK Initialized successfully (FirebaseAdmin.ts)");
-    } catch (error: any) {
-      console.error("Firebase Admin SDK initialization error IN FirebaseAdmin.ts:", error.message, error.stack);
+    } catch (error: unknown) {
+      console.error("Firebase Admin SDK initialization error IN FirebaseAdmin.ts:", error instanceof Error ? error.message : 'Unknown error', error instanceof Error ? error.stack : '');
       // If initialization fails, 'app' will be undefined, and trying to use admin.auth() later will also fail.
     }
   } else {
