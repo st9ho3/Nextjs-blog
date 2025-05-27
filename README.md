@@ -23,7 +23,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 * **TypeScript:** The project is written in TypeScript, with type definitions provided in `type.d.ts`.
 
-## Visit Blog here -> [nextjs-blog-ten-liard-59.vercel.app]
+## Visit Blog here
+-> [Λog]([nextjs-blog-ten-liard-59.vercel.app])
+
 
 
 ## Project Structure
