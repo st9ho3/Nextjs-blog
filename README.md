@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Blog Project
 
-## Getting Started
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app) and enhanced with features for a modern blogging platform.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+* **Framework:** Built with [Next.js] (App Router) for server-side rendering, static site generation.
+* **Authentication:** User authentication (Sign Up, Sign In, Sign Out) is handled using Firebase Authentication. Session management is implemented with HTTP-only cookies.
+* **Content Creation:** A rich text editor using [Blocknote](https://www.blocknotejs.org/) is provided for writing articles.
+    * Supports various block types including headings, paragraphs, lists (bulleted, numbered, checklist), code blocks, tables, and images.
+    * Image uploads are handled via a custom hook (`useFileUpload`) that integrates with Firebase Storage.
+* **Content Rendering:** A custom HTML renderer is used to display Blocknote content, ensuring proper styling and structure for articles.
+* **API Routes:** Backend functionality is provided through Next.js API routes for:
+    * User registration (`/api/register`)
+    * User login (`/api/login`)
+    * User logout (`/api/logout`)
+    * Fetching articles (`/api/articles`)
+    * Fetching authors (`/api/authors`)
+    * Fetching current user data (`/api/user`)
+* **Database:** Firestore is used as the database for storing articles and author information.
+* **Styling:** Global styles, component-specific CSS modules, and CSS variables are used for styling.
+* **Font Optimization:** Uses `next/font` for optimizing and loading fonts (Inter and Brygada 1918).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* **TypeScript:** The project is written in TypeScript, with type definitions provided in `type.d.ts`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Visit Blog here -> [nextjs-blog-ten-liard-59.vercel.app]
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* `src/app/`: Contains the main application routes and layouts.
+    * `(auth)/`: Authentication related pages (login, register) and layout.
+    * `(components)/`: Reusable UI components used across the application.
+    * `(user)/`: User-specific pages like home, article display, and the write page.
+* `src/app/_db/`: Firebase configuration, authentication context, and database service functions.
+* `src/app/_lib/`: Utility functions for the application.
+* `src/editor/`: Configuration and components related to the Blocknote editor.
+* `src/hooks/`: Custom React hooks, like `useFileUpload`.
+* `public/`: Static assets like images.
+* `middleware.ts`: Handles routing logic based on authentication status.
+* `next.config.ts`: Next.js configuration, including image remote patterns.
+* `eslint.config.mjs`: ESLint configuration.
+* `tsconfig.json`: TypeScript configuration.
+* `type.d.ts`: Global TypeScript type definitions for the project.
