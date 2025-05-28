@@ -74,6 +74,10 @@ const LoginForm = () => {
               {error && <h4>{error}</h4> } {/* Displays an error message if the 'error' state is not null. */}
               <form className="auth-form" onSubmit={handleLogin} > {/* Login form element with submit handler. */}
                 <h2>Sign In</h2>
+                <div className='demo'>
+                  <p>Username: <span style={{color: 'red'}}>stahos@windowslive.com</span></p>
+                  <p>Password: <span style={{color: 'red'}}>123456</span></p>
+                </div>
                  {/* This h4 seems to be an empty placeholder for spacing or a potential future message. */}
                  <h4 style={{paddingBottom: '1rem', color: 'red' }}></h4>
                 {/* {loginFailMessage && <h4 style={{paddingBottom: '1rem', color: 'red' }}>{loginFailMessage}</h4>} */}

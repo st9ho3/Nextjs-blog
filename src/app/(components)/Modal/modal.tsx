@@ -105,14 +105,12 @@ const Modal = ({ user, type, isOpen}: {user: Author | undefined, type: Type, isO
                       alt="Profile" 
                       className="profile-modal-image"
                     />
-                    <h2 className="profile-modal-name">
-                      {user?.email || 'User Name'}
-                    </h2>
+                    
                     
                     <button 
                       className="profile-logout-btn"
                       onClick={() => {
-                        fetch('/login/api/logout', {
+                        fetch('/api/logout', {
                           method: 'POST',
                           headers: {
                             'Content-Type': 'application/json',
