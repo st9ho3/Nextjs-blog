@@ -21,7 +21,7 @@ const TopWriters = async () => {
               {sortedAuthors.map((user) => (
                 <li key={user.id}>
                   <Link
-                    href={`/${user.name}`}
+                    href={`/${user.id}`}
                     aria-label={`View articles by ${user.name}`}
                   >
                     <div className="trending-writers">

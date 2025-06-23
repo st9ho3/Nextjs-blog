@@ -26,7 +26,7 @@ const page = async ({searchParams}: {searchParams: Promise<{type?: string}>}) =>
       }) 
     : data; // If no filter, all articles are set to be displayed.
   
-  // JSX for the homepage layout.
+  
   return (
     <div className="homepage"> {/* Main container for the homepage. */}
       {/* Suspense component to show a loading message while articles are being fetched. */}
@@ -43,7 +43,7 @@ const page = async ({searchParams}: {searchParams: Promise<{type?: string}>}) =>
           : <h2>Loading Articles...</h2> } 
       </div>
       </Suspense>
-      {/* Renders the Sidebar component. */}
+        
       <Sidebar /> 
     
     </div>
