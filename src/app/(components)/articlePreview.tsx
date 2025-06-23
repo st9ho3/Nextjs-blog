@@ -66,7 +66,7 @@ const ArticlePreview = ({ article }: { article: Article }) => {
       </div>
       {/* Article image link */}
       { image !== "No image" && <Link
-        href={`/${article.id}`}
+        href={`/${article.author.id}/${article.id}`}
         className="image-link"
       >
        <Image className="article-image" width={150} height={150} src={image} alt="article image" /> 
