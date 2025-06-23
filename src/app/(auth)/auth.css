@@ -121,3 +121,14 @@
 .auth-link a:hover {
   text-decoration: underline;
 }
+
+/* Responsive styles for tablet and mobile */
+@media (max-width: 850px) {
+  .left-section {
+    display: none;
+  }
+  .right-section {
+    width:100%;
+    
+  }
+}

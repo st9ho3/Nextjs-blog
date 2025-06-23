@@ -70,34 +70,3 @@ a {
   text-decoration: none;
   color: black;
 }
-
-.menu {
-  display: none;
-}
-
-/* Tablet Breakpoints */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .menu {
-    margin-left: var(--menu-margin-left);
-    font-size: var(--menu-font-size-large);
-    display: block;
-  }
-}
-
-/* Small Mobile Devices */
-@media (max-width: 427px) {
-  .menu {
-    margin-left: var(--menu-margin-left);
-    font-size: var(--menu-font-size-small);
-    display: block;
-  }
-}
-
-/* Medium Mobile Devices */
-@media (min-width: 428px) and (max-width: 450px) {
-  .menu {
-    margin-left: 4rem;
-    font-size: var(--menu-font-size-small);
-    display: block;
-  }
-}

@@ -29,24 +29,6 @@
   border-color: var(--button-border-color-hover);
 }
 
-/* Small Mobile Devices */
-@media (max-width: 427px) {
-  .menu {
-    margin-left: var(--menu-margin-left);
-    font-size: var(--menu-font-size-small);
-    display: block;
-  }
-}
-
-/* Medium Mobile Devices */
-@media (min-width: 428px) and (max-width: 450px) {
-  .menu {
-    margin-left: 4rem;
-    font-size: var(--menu-font-size-small);
-    display: block;
-  }
-}
-
 /* Tablet and Desktop Breakpoints */
 @media (min-width: 750px) and (max-width: 768px) {
   .button {
@@ -70,10 +52,5 @@
   }
   .write-icon {
     margin-right: 0.4rem;
-  }
-  .menu {
-    margin-left: var(--menu-margin-left);
-    font-size: var(--menu-font-size-large);
-    display: block;
   }
 }

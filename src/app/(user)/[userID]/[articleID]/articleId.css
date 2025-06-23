@@ -121,7 +121,7 @@
   @media (max-width: 460px) {
     .article-page-main {
       padding: 0; /* Adjust padding for smaller screens */
-      border: solid 1px rgb(240, 4, 4)
+      
     }
     .article-content-container {
       width: 100%; /* Adjust width for smaller screens */
@@ -148,16 +148,3 @@
       width: 80%; /* Adjust details bar width for smaller screens */
     }
   } 
-  
-  /* Optional: Add styles for elements *within* ContentRenderer if needed */
-  /* For example: */
-  /*
-  .article-content-container p {
-    margin-bottom: 1rem;
-  }
-  
-  .article-content-container h2 {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-  }
-  */

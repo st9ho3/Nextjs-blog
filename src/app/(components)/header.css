@@ -47,7 +47,11 @@
 }
 
 .menu {
-  display: none;
+  /* Show by default on smaller screens and add a pointer cursor */
+  display: block;
+  cursor: pointer;
+  font-size: var(--menu-font-size-large);
+  margin-left: var(--menu-margin-left);
 }
 
 .profile-info-pic {
@@ -61,8 +65,15 @@
   display: flex;
   align-items: center; /* Vertically align items in the right group */
   padding-inline: 0.5rem;
-  margin-left: auto; /* THIS IS THE KEY CHANGE - Pushes this div to the right */
+  margin-left: auto; /* Pushes this div to the right */
   gap: 0.5rem; /* Add some space between items in headerRight */
+}
+
+/* Hide the menu icon on larger screens */
+@media (min-width: 1025px) {
+  .menu {
+    display: none;
+  }
 }
 
 @media (max-width: 850px) {
