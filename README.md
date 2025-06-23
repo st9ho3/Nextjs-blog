@@ -27,7 +27,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 This project is currently unfinished. Key areas requiring further development include:
 
-* **Profile Page:** The user profile page (`src/app/(user)/[userID]/page.tsx`) needs to be fully built out to display user-specific information and articles.
 * **Social Icons Functionality:** The social icons across the application currently lack full functionality and need to be integrated with relevant actions (e.g., sharing, liking, commenting).
 
 ## Visit Blog here
