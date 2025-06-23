@@ -27,7 +27,7 @@ const ArticlePreview = ({ article }: { article: Article }) => {
           <span className="by">by</span>
           {/* Profile link */}
           <Link
-            href={`${article.author?.name || 'Unknown'}`}
+            href={`${article.author?.id || 'Unknown'}`}
             className="profile-name"
           >
             {article.author?.name || 'Unknown'}
