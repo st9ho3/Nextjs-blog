@@ -41,6 +41,13 @@ const Header = () => {
     
 }, []); // Runs once on mount
 
+const openModal = () => {
+  if (profileModalOpen) {
+    setProfileModalOpen(false)
+  }
+  setProfileModalOpen(!profileModalOpen)
+}
+
 
   return (
     <div>
@@ -71,7 +78,7 @@ const Header = () => {
             src={user?.profilePicture || '/man.png'}
             className="profile-info-pic top"
             alt="profile-pic"
-            onClick={() => setProfileModalOpen(!profileModalOpen)}
+            onClick={openModal}
           /> : <AuthButton text='Sign in'  />  }
         </div>
       </div>
