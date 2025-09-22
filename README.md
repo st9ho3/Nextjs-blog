@@ -6,8 +6,8 @@
 
 ### 🚀 Live Demo
 
-  * **Live Site:** [https://nextjs-blog-ten-liard-59.vercel.app](https://nextjs-blog-ten-liard-59.vercel.app)
-  * **Repository:** [https://github.com/yourusername/project-name](https://github.com/yourusername/project-name)
+  * **Live Site:** [Access Here](https://nextjs-blog-ten-liard-59.vercel.app)
+  * **Repository:** [https://github.com/st9ho3/Nextjs-blog](https://github.com/st9ho3/Nextjs-blog.git)
 
 -----
 
@@ -160,14 +160,13 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 
 -----
 
-### 👤 Contact
+## 👤 Contact
 
-**Your Name**
-
-  * **Email:** your.email@example.com
-  * **LinkedIn:** [linkedin.com/in/yourprofile](https://www.google.com/search?q=https://linkedin.com/in/yourprofile)
-  * **Portfolio:** [yourportfolio.com](https://yourportfolio.com)
-  * **GitHub:** [@yourusername](https://github.com/yourusername)
+  * **Panagiotis Stachoulis**
+  * **Email:** stahos@windowslive.com
+  * **LinkedIn:** [linkedin.com/in/panagiotis-stachoulis](https://www.linkedin.com/in/panagiotis-stachoulis-586605291?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B1QZJsuE%2FQxWX7HDghoh9yQ%3D%3D)
+  * **Portfolio:** [pstachoulis.com](https://pstachoulis.com/)
+  * **GitHub:** [@st9ho3](https://github.com/st9ho3)
 
 -----
 
