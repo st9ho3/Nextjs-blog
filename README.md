@@ -134,15 +134,6 @@ The application provides a straightforward and intuitive user experience. After 
 
 -----
 
-### 📸 Screenshots
-
-**Desktop View** 
-
-**Mobile View** *(Add a screenshot of the mobile view here)*
-
-**Writing Editor** *(Add a screenshot of the writing editor here)*
-
------
 
 ### 🚧 Future Improvements
 
