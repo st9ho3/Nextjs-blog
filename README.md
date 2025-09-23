@@ -1,4 +1,4 @@
-# Λog: A Feature-Rich, Server-Rendered Blogging Platform
+# Λog: A Blogging Platform
 <img width="1901" height="953" alt="Screenshot 2025-09-23 at 8 30 44 PM" src="https://github.com/user-attachments/assets/98d5eec8-cc5a-4a55-b1fd-d723149229b2" />
 
 Λog is a full-stack blogging platform built with Next.js and Firebase. It provides a seamless and modern writing experience with a rich text editor, secure authentication, and a server-rendered frontend.
